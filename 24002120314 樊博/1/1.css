@@ -1,0 +1,120 @@
+/*全局css*/
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+a{
+    text-decoration:none;
+}
+ul,ol{
+    list-style:none;
+}
+  .page-header{
+    background:linear-gradient(to right,#ff9900,#ffcc00);
+    color:#c17575;
+    padding:20px 40px;
+    text-align:center;
+    margin-bottom:30px;
+}
+.page-header h2{
+    font-size:36px;
+}
+.page-main{
+    max-width: 960px;
+    margin:0 auto;
+    padding:20px;
+}
+.page-main .case{
+    background:#4b3737;
+    padding:20px;
+    margin-bottom:30px;
+    border-radius:10px;
+    border:1px solid #ca5050;
+}
+.case-title{
+    font-size:24px;
+    color:#c17575;
+    border-bottom:1px solid #eee;
+}
+.nav-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 20px;
+    background:#4b3737;
+    color:#c17575;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:10px;
+}
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#b11212;
+    margin-right:20px;
+}
+.nav-list{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap: 20px;
+}
+.nav-list a{
+    color:#c17575;
+    font-weight: bold;
+    font-size:18px;
+    padding:10px 20px;
+    border-radius:10px;
+}
+.nav-list a:hover{
+    background:rgba(245,224,153,0.5);
+}
+.three-columns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background:#4b3737;
+    padding:20px;
+    border-radius:10px;
+}
+.three-columns .column{
+    background:#c17575;
+    padding:20px;
+    flex:1;
+    text-align:center;
+    border-radius:10px;
+}
+.three-columns .column:nth-child(2){
+    background:#414bb7;
+}
+.three-columns .column:nth-child(3){
+    background:#ba2682;
+}
+.card-grid{
+    display:flex;
+    flex-wrap: wrap;
+    gap:20px;
+}
+.card-grid .card{
+    background:#4b3737;
+    color:#fff;
+    padding:20px;
+    flex:1 1 250px;
+    text-align:center;
+    border-radius:10px;
+    transition:all 0.3s ease-in-out;
+}
+.card-grid .card:hover{
+    transform:scale(1.1) translateY(-10px);
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+.sidebar{
+    display: flex;
+    flex-wrap: nowrap;
+    gap:20px;
+    background:#4b3737;
+    padding:20px;
+    text-align:center;
+}
