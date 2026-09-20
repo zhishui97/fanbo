@@ -118,3 +118,17 @@ ul,ol{
     padding:20px;
     text-align:center;
 }
+.sidebar aside{
+    flex:0 0 200px;
+    background:#c17575;
+    padding:20px;
+    border-radius:10px;
+    color:#ffffff;
+}
+.sidebar .main-content{
+    flex:1;
+    background:#e2c9a8;
+    padding:20px;
+    border-radius:10px;
+    color:#4b3737;
+}
