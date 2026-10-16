@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>抓小球游戏|函数的三个方法的应用</title>
+<style>
+body{
+background:#f0f8ff;
+overflow: hidden;
+font-size:24px;}
+#info{
+padding:16px;
+background:#222;
+color:#fff;
+}
+.ball{
+width: 50px;
+height:50px;
+background:red;
+border-radius:50%;
+position:absolute;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div id="info">当前分数:<span id="score">0</span></div>
+<div class="ball" id="ball"></div>
+
+<script>
+    var info = document.getElementById('info');
+    var ball = document.getElementById('ball');
+    var score = document.getElementById('score');
+    var num = 0;
+
+    // 小球不要跑到上面的分数栏里
+    var topMin = info.offsetHeight + 20;
+
+    // 随机把小球挪到窗口里的新位置
+    function moveBall() {
+        ball.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+        ball.style.top = topMin + Math.random() * (window.innerHeight - topMin - 50) + 'px';
+    }
+    moveBall();
+
+    // ===== 1. setInterval()：每隔 1 秒自动把小球移动一次 =====
+    var timer = setInterval(moveBall, 1000);
+
+    // ===== 2. 点击小球：分数加 1，并且马上换一个位置 =====
+    ball.onclick = function () {
+        num++;
+        score.innerHTML = num;
+        moveBall();
+    };
+
+    // ===== 3. setTimeout() + clearInterval()：30 秒后结束游戏 =====
+    setTimeout(function () {
+        clearInterval(timer);
+        ball.style.display = 'none';
+        info.innerHTML = '游戏结束，最终得分：' + num;
+    }, 30000);
+</script>
+</body>
+</html>
