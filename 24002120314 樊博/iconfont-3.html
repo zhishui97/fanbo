@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掌上导航 · 字体图标版</title>
+<link rel="stylesheet" href="font/iconfont.css">
+<style>
+:root{--fb-paper:#f7f4ed;--fb-ink:#17252f;--fb-muted:#65747b;--fb-teal:#166b6b;--fb-teal-dark:#0f4b50;--fb-coral:#d96c4f;--fb-yellow:#f1c75b;--fb-line:#d8ddd7;--fb-red:#e5484d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{color:var(--fb-ink);background:radial-gradient(circle at 12% 6%,rgba(241,199,91,.28) 0 10rem,transparent 10.1rem),radial-gradient(circle at 90% 70%,rgba(217,108,79,.14) 0 13rem,transparent 13.1rem),var(--fb-paper);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.6;padding-bottom:96px}
+a{color:inherit;text-decoration:none}
+.fb_topbar{display:flex;align-items:center;justify-content:space-between;width:min(480px,100%);margin:0 auto;padding:18px 16px 0;font-size:13px;letter-spacing:.08em;color:var(--fb-teal-dark)}
+.fb_brand{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.fb_brand::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--fb-coral);box-shadow:7px 0 0 var(--fb-yellow)}
+.fb_link_home{padding:5px 12px;border:1px solid var(--fb-teal);border-radius:999px;transition:.25s}
+.fb_link_home:hover{background:var(--fb-teal);color:#fff}
+.fb_hero{width:min(480px,100%);margin:0 auto;padding:30px 16px 8px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:end}
+.fb_hero_num{font-size:clamp(64px,18vw,104px);line-height:.85;font-weight:900;color:var(--fb-teal);letter-spacing:-.04em}
+.fb_hero_num em{font-style:normal;color:var(--fb-coral)}
+.fb_tag{display:inline-block;margin-bottom:8px;padding:3px 10px;background:var(--fb-ink);color:var(--fb-yellow);font-size:11px;letter-spacing:.28em;border-radius:2px}
+.fb_hero h1{font-size:22px;letter-spacing:.05em}
+.fb_hero p{color:var(--fb-muted);font-size:13px;margin-top:6px}
+.fb_shell{width:min(480px,100%);margin:0 auto;padding:10px 16px}
+.fb_section_title{display:flex;align-items:baseline;gap:10px;margin:22px 0 12px}
+.fb_section_title strong{font-size:17px;letter-spacing:.06em}
+.fb_section_title span{color:var(--fb-muted);font-size:12px;letter-spacing:.16em}
+.fb_feed{display:flex;flex-direction:column;gap:10px}
+.fb_feed_card{background:#fff;border:1px solid var(--fb-line);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+.fb_feed_avatar{flex:none;width:40px;height:40px;border-radius:12px;background:var(--fb-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px}
+.fb_feed_card:nth-child(2n) .fb_feed_avatar{background:var(--fb-coral)}
+.fb_feed_body b{font-size:14px}
+.fb_feed_body p{font-size:13px;color:var(--fb-muted);margin-top:2px}
+.fb_feed_meta{display:flex;gap:16px;margin-top:8px;color:var(--fb-muted);font-size:12px;align-items:center}
+.fb_feed_meta .iconfont{font-size:14px;margin-right:3px;vertical-align:-1px}
+.fb_wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.fb_cell{background:#fff;border:1px solid var(--fb-line);border-radius:12px;padding:14px 4px;text-align:center;transition:.25s}
+.fb_cell .iconfont{font-size:26px;color:var(--fb-teal);transition:.25s}
+.fb_cell b{display:block;margin-top:6px;font-size:11px;font-weight:600;color:var(--fb-muted);word-break:break-all}
+.fb_cell:hover{transform:translateY(-4px);border-color:var(--fb-coral)}
+.fb_cell:hover .iconfont{color:var(--fb-coral);transform:scale(1.15)}
+.fb_nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,480px);background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-top:1px solid var(--fb-line);display:flex;z-index:99;padding:10px 4px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px rgba(38,61,61,.08)}
+.fb_nav_item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--fb-muted);cursor:pointer;position:relative;transition:.25s;-webkit-tap-highlight-color:transparent}
+.fb_nav_item::before{content:"";position:absolute;top:-10px;width:18px;height:3px;border-radius:2px;background:transparent;transition:.25s}
+.fb_nav_item.fb_active{color:var(--fb-teal)}
+.fb_nav_item.fb_active::before{background:var(--fb-coral)}
+.fb_nav_icon{position:relative;font-size:24px;transition:.25s}
+.fb_nav_item.fb_active .fb_nav_icon{transform:translateY(-2px) scale(1.08)}
+.fb_nav_label{font-size:11px;letter-spacing:.04em}
+.fb_badge_num{position:absolute;top:-8px;right:-14px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--fb-coral);color:#fff;font-size:10px;line-height:17px;text-align:center;font-family:Consolas,monospace;font-weight:700;box-shadow:0 0 0 2px #fff}
+.fb_badge_dot{position:absolute;top:-3px;right:-9px;width:9px;height:9px;border-radius:50%;background:var(--fb-red);box-shadow:0 0 0 2px #fff;animation:fb_pulse 1.8s infinite}
+@keyframes fb_pulse{0%{box-shadow:0 0 0 0 rgba(229,72,77,.45),0 0 0 2px #fff}70%{box-shadow:0 0 0 7px rgba(229,72,77,0),0 0 0 2px #fff}100%{box-shadow:0 0 0 0 rgba(229,72,77,0),0 0 0 2px #fff}}
+.fb_note{margin-top:14px;color:var(--fb-muted);font-size:12px}
+.fb_code{margin-top:18px;background:var(--fb-ink);color:#e8f1ee;border-radius:12px;padding:16px 18px;font-family:Consolas,monospace;font-size:12.5px;line-height:1.9;overflow:auto}
+.fb_c_tag{color:var(--fb-yellow)}
+.fb_c_cls{color:#7fd8c8}
+.fb_footer{width:min(480px,100%);margin:0 auto;padding:20px 16px 10px;color:var(--fb-muted);font-size:12px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--fb-line)}
+</style>
+</head>
+<body>
+<header class="fb_topbar">
+  <span class="fb_brand">GLYPH LAB · 移动导航实验 03</span>
+  <a class="fb_link_home" href="index.html">返回首页</a>
+</header>
+
+<section class="fb_hero">
+  <div class="fb_hero_num"><em>IF</em>03</div>
+  <div>
+    <span class="fb_tag">ICONFONT · FONT METHOD</span>
+    <h1>字体图标底部导航</h1>
+    <p>font/iconfont.css + 字体文件：图标以文字字形渲染，4 个导航项 flex:1 自适应均分宽度。</p>
+  </div>
+</section>
+
+<main class="fb_shell">
+  <div class="fb_section_title"><strong>内容流示例</strong><span>让页面可滚动</span></div>
+  <div class="fb_feed">
+    <div class="fb_feed_card">
+      <div class="fb_feed_avatar"><i class="iconfont icon-pengyouquan"></i></div>
+      <div class="fb_feed_body">
+        <b>樊博 发布了动态</b>
+        <p>今天的字形实验室新增了 24 枚 iconfont 图标，欢迎围观。</p>
+        <div class="fb_feed_meta"><span><i class="iconfont icon-dianzan"></i>128</span><span><i class="iconfont icon-biaoqing"></i>32</span><span><i class="iconfont icon-rili"></i>10:24</span></div>
+      </div>
+    </div>
+    <div class="fb_feed_card">
+      <div class="fb_feed_avatar"><i class="iconfont icon-jieda"></i></div>
+      <div class="fb_feed_body">
+        <b>解答广场 · 置顶</b>
+        <p>字体图标与 SVG 图标各有什么优劣？点开底部「解答」参与讨论。</p>
+        <div class="fb_feed_meta"><span><i class="iconfont icon-dianzan"></i>56</span><span><i class="iconfont icon-shipin"></i>视频讲解</span></div>
+      </div>
+    </div>
+    <div class="fb_feed_card">
+      <div class="fb_feed_avatar"><i class="iconfont icon-tupian"></i></div>
+      <div class="fb_feed_body">
+        <b>相册更新</b>
+        <p>移动端底部导航适配 iPhone 安全区：env(safe-area-inset-bottom)。</p>
+        <div class="fb_feed_meta"><span><i class="iconfont icon-paizhao"></i>9 张</span><span><i class="iconfont icon-tongzhi"></i>已推送</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fb_section_title"><strong>全部图标 24 枚</strong><span>icon-xxx / unicode</span></div>
+  <div class="fb_wall">
+    <div class="fb_cell"><i class="iconfont icon-anquanshouhu"></i><b>anquanshouhu</b></div>
+    <div class="fb_cell"><i class="iconfont icon-anquanrenzheng"></i><b>anquanrenzheng</b></div>
+    <div class="fb_cell"><i class="iconfont icon-bianji"></i><b>bianji</b></div>
+    <div class="fb_cell"><i class="iconfont icon-biaoqing"></i><b>biaoqing</b></div>
+    <div class="fb_cell"><i class="iconfont icon-tiaojie"></i><b>tiaojie</b></div>
+    <div class="fb_cell"><i class="iconfont icon-diancai"></i><b>diancai</b></div>
+    <div class="fb_cell"><i class="iconfont icon-dianzan"></i><b>dianzan</b></div>
+    <div class="fb_cell"><i class="iconfont icon-jieda"></i><b>jieda</b></div>
+    <div class="fb_cell"><i class="iconfont icon-renzheng"></i><b>renzheng</b></div>
+    <div class="fb_cell"><i class="iconfont icon-huiyuan"></i><b>huiyuan</b></div>
+    <div class="fb_cell"><i class="iconfont icon-shezhi"></i><b>shezhi</b></div>
+    <div class="fb_cell"><i class="iconfont icon-pifu"></i><b>pifu</b></div>
+    <div class="fb_cell"><i class="iconfont icon-shanchu"></i><b>shanchu</b></div>
+    <div class="fb_cell"><i class="iconfont icon-shipin"></i><b>shipin</b></div>
+    <div class="fb_cell"><i class="iconfont icon-pengyouquan"></i><b>pengyouquan</b></div>
+    <div class="fb_cell"><i class="iconfont icon-rili"></i><b>rili</b></div>
+    <div class="fb_cell"><i class="iconfont icon-shenheshibai"></i><b>shenheshibai</b></div>
+    <div class="fb_cell"><i class="iconfont icon-fuzhi"></i><b>fuzhi</b></div>
+    <div class="fb_cell"><i class="iconfont icon-qiehuan"></i><b>qiehuan</b></div>
+    <div class="fb_cell"><i class="iconfont icon-tianjiahaoyou"></i><b>tianjiahaoyou</b></div>
+    <div class="fb_cell"><i class="iconfont icon-tishi"></i><b>tishi</b></div>
+    <div class="fb_cell"><i class="iconfont icon-paizhao"></i><b>paizhao</b></div>
+    <div class="fb_cell"><i class="iconfont icon-tongzhi"></i><b>tongzhi</b></div>
+    <div class="fb_cell"><i class="iconfont icon-tupian"></i><b>tupian</b></div>
+  </div>
+
+  <div class="fb_section_title"><strong>徽章说明</strong><span>BADGE / DOT</span></div>
+  <p class="fb_note">「消息」右上角是数字徽章（点击一次减 1，归零自动隐藏）；「我的」右上角是带呼吸动画的红点（点击清除）。</p>
+
+  <div class="fb_code">
+    <div><span class="fb_c_tag">&lt;link</span> rel="stylesheet" href="font/iconfont.css"<span class="fb_c_tag">&gt;</span></div>
+    <div><span class="fb_c_tag">&lt;i</span> <span class="fb_c_cls">class="iconfont icon-tongzhi"</span><span class="fb_c_tag">&gt;&lt;/i&gt;</span> ← 字体图标</div>
+    <div>.fb_nav{position:fixed;width:min(100%,480px)} .fb_nav_item{flex:1} ← 固定 + 自适应</div>
+  </div>
+</main>
+
+<footer class="fb_footer">
+  <span>24002120314 樊博 · 高级网页设计</span>
+  <a class="fb_link_home" href="index.html">← index.html</a>
+</footer>
+
+<nav class="fb_nav" id="fb_nav">
+  <div class="fb_nav_item fb_active">
+    <span class="fb_nav_icon"><i class="iconfont icon-pengyouquan"></i></span>
+    <span class="fb_nav_label">广场</span>
+  </div>
+  <div class="fb_nav_item">
+    <span class="fb_nav_icon"><i class="iconfont icon-jieda"></i></span>
+    <span class="fb_nav_label">解答</span>
+  </div>
+  <div class="fb_nav_item" id="fb_nav_msg">
+    <span class="fb_nav_icon"><i class="iconfont icon-tongzhi"></i><span class="fb_badge_num" id="fb_badge_num">6</span></span>
+    <span class="fb_nav_label">消息</span>
+  </div>
+  <div class="fb_nav_item" id="fb_nav_me">
+    <span class="fb_nav_icon"><i class="iconfont icon-huiyuan"></i><span class="fb_badge_dot" id="fb_badge_dot"></span></span>
+    <span class="fb_nav_label">我的</span>
+  </div>
+</nav>
+
+<script>
+const fb_navItems = document.querySelectorAll(".fb_nav_item");
+const fb_badge = document.getElementById("fb_badge_num");
+const fb_dot = document.getElementById("fb_badge_dot");
+
+fb_navItems.forEach(function (fb_item) {
+  fb_item.addEventListener("click", function () {
+    fb_navItems.forEach(function (fb_it) { fb_it.classList.remove("fb_active"); });
+    fb_item.classList.add("fb_active");
+  });
+});
+
+document.getElementById("fb_nav_msg").addEventListener("click", function () {
+  const fb_count = Number(fb_badge.textContent) - 1;
+  if (fb_count > 0) { fb_badge.textContent = fb_count; } else { fb_badge.style.display = "none"; }
+});
+
+document.getElementById("fb_nav_me").addEventListener("click", function () {
+  fb_dot.style.display = "none";
+});
+</script>
+</body>
+</html>

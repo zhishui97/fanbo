@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>线条之诗 · Lucide SVG 图标</title>
+<style>
+:root{--fb-paper:#f7f4ed;--fb-ink:#17252f;--fb-muted:#65747b;--fb-teal:#166b6b;--fb-teal-dark:#0f4b50;--fb-coral:#d96c4f;--fb-yellow:#f1c75b;--fb-line:#d8ddd7;--fb-stroke:2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{color:var(--fb-ink);background:radial-gradient(circle at 88% 10%,rgba(217,108,79,.18) 0 13rem,transparent 13.1rem),radial-gradient(circle at 8% 85%,rgba(22,107,107,.14) 0 15rem,transparent 15.1rem),var(--fb-paper);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.fb_topbar{display:flex;align-items:center;justify-content:space-between;width:min(1120px,calc(100% - 40px));margin:0 auto;padding:22px 0;font-size:14px;letter-spacing:.08em;color:var(--fb-teal-dark)}
+.fb_brand{display:inline-flex;align-items:center;gap:10px;font-weight:700}
+.fb_brand::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--fb-teal);box-shadow:8px 0 0 var(--fb-coral)}
+.fb_link_home{padding:7px 14px;border:1px solid var(--fb-teal);border-radius:999px;transition:.25s}
+.fb_link_home:hover{background:var(--fb-teal);color:#fff}
+.fb_hero{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:52px 0 26px;display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:end}
+.fb_hero_num{font-size:clamp(90px,15vw,180px);line-height:.82;font-weight:900;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:2.5px var(--fb-coral)}
+.fb_hero_num em{font-style:normal;-webkit-text-stroke-color:var(--fb-teal)}
+.fb_tag{display:inline-block;margin-bottom:12px;padding:4px 12px;background:var(--fb-coral);color:#fff;font-size:12px;letter-spacing:.3em;border-radius:2px}
+.fb_hero h1{font-size:clamp(26px,4vw,42px);letter-spacing:.06em}
+.fb_hero p{color:var(--fb-muted);max-width:560px;margin-top:10px}
+.fb_marquee{overflow:hidden;border-block:1px solid var(--fb-line);background:#eef4f0;margin-top:24px}
+.fb_marquee_row{display:flex;gap:46px;width:max-content;padding:14px 0;animation:fb_slide 22s linear infinite}
+.fb_marquee_row svg{width:26px;height:26px;color:var(--fb-teal-dark)}
+.fb_marquee_row svg:nth-child(3n){color:var(--fb-coral)}
+@keyframes fb_slide{to{transform:translateX(-50%)}}
+.fb_shell{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:44px 0 26px}
+.fb_section_title{display:flex;align-items:baseline;gap:14px;margin:34px 0 18px}
+.fb_section_title strong{font-size:22px;letter-spacing:.08em}
+.fb_section_title span{color:var(--fb-muted);font-size:13px;letter-spacing:.2em}
+.fb_grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:14px}
+.fb_card{background:#fff;border:1px solid var(--fb-line);border-radius:12px;padding:22px 10px;text-align:center;transition:.28s}
+.fb_card svg{width:36px;height:36px;color:var(--fb-teal);stroke-width:var(--fb-stroke);stroke-dasharray:140;stroke-dashoffset:140;animation:fb_draw 1.3s ease forwards;transition:.28s}
+.fb_card:nth-child(2n) svg{animation-delay:.12s}
+.fb_card:nth-child(3n) svg{animation-delay:.24s}
+.fb_card b{display:block;margin-top:10px;font-size:13px;font-weight:600;color:var(--fb-muted);word-break:break-all}
+.fb_card:hover{transform:translateY(-6px);border-color:var(--fb-coral);box-shadow:0 14px 30px rgba(38,61,61,.14)}
+.fb_card:hover svg{color:var(--fb-coral);stroke-width:var(--fb-stroke);transform:scale(1.12)}
+.fb_card:hover b{color:var(--fb-ink)}
+@keyframes fb_draw{to{stroke-dashoffset:0}}
+.fb_lab{margin-top:36px;background:#fff;border:1px solid var(--fb-line);border-radius:14px;padding:22px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.fb_lab strong{letter-spacing:.06em}
+.fb_lab input[type=range]{width:220px;accent-color:var(--fb-teal)}
+.fb_lab output{min-width:42px;text-align:center;background:var(--fb-teal);color:#fff;border-radius:6px;padding:2px 8px;font-family:Consolas,monospace}
+.fb_code{margin-top:22px;background:var(--fb-ink);color:#e8f1ee;border-radius:14px;padding:20px 24px;font-family:Consolas,monospace;font-size:14px;line-height:1.9;overflow:auto}
+.fb_c_tag{color:var(--fb-yellow)}
+.fb_c_cls{color:#7fd8c8}
+.fb_note{margin-top:14px;color:var(--fb-muted);font-size:13px}
+.fb_footer{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:28px 0 44px;border-top:1px solid var(--fb-line);display:flex;justify-content:space-between;align-items:center;color:var(--fb-muted);font-size:13px}
+</style>
+</head>
+<body>
+<header class="fb_topbar">
+  <span class="fb_brand">GLYPH LAB · 字形实验室</span>
+  <a class="fb_link_home" href="index.html">返回首页</a>
+</header>
+
+<section class="fb_hero">
+  <div class="fb_hero_num"><em>LU</em>02</div>
+  <div>
+    <span class="fb_tag">LUCIDE · SVG METHOD</span>
+    <h1>线条之诗 —— Lucide SVG 图标</h1>
+    <p>图标即矢量：JS 把占位标签替换成内联 SVG，每一根线条都能用 CSS 操控——改描边粗细、播放描边生长动画，这是字体图标做不到的事。</p>
+  </div>
+</section>
+
+<div class="fb_marquee" aria-hidden="true">
+  <div class="fb_marquee_row">
+    <i data-lucide="star"></i><i data-lucide="heart"></i><i data-lucide="zap"></i><i data-lucide="music"></i><i data-lucide="camera"></i><i data-lucide="flame"></i><i data-lucide="gift"></i><i data-lucide="crown"></i><i data-lucide="star"></i><i data-lucide="heart"></i><i data-lucide="zap"></i><i data-lucide="music"></i><i data-lucide="camera"></i><i data-lucide="flame"></i><i data-lucide="gift"></i><i data-lucide="crown"></i>
+  </div>
+</div>
+
+<main class="fb_shell">
+  <div class="fb_section_title"><strong>线性图标墙</strong><span>STROKE / 24×24 GRID</span></div>
+  <div class="fb_grid" id="fb_wall">
+    <div class="fb_card"><i data-lucide="pen-tool"></i><b>pen-tool</b></div>
+    <div class="fb_card"><i data-lucide="palette"></i><b>palette</b></div>
+    <div class="fb_card"><i data-lucide="feather"></i><b>feather</b></div>
+    <div class="fb_card"><i data-lucide="compass"></i><b>compass</b></div>
+    <div class="fb_card"><i data-lucide="camera"></i><b>camera</b></div>
+    <div class="fb_card"><i data-lucide="music"></i><b>music</b></div>
+    <div class="fb_card"><i data-lucide="heart"></i><b>heart</b></div>
+    <div class="fb_card"><i data-lucide="star"></i><b>star</b></div>
+    <div class="fb_card"><i data-lucide="zap"></i><b>zap</b></div>
+    <div class="fb_card"><i data-lucide="gift"></i><b>gift</b></div>
+    <div class="fb_card"><i data-lucide="home"></i><b>home</b></div>
+    <div class="fb_card"><i data-lucide="cloud"></i><b>cloud</b></div>
+    <div class="fb_card"><i data-lucide="sun"></i><b>sun</b></div>
+    <div class="fb_card"><i data-lucide="moon"></i><b>moon</b></div>
+    <div class="fb_card"><i data-lucide="search"></i><b>search</b></div>
+    <div class="fb_card"><i data-lucide="settings"></i><b>settings</b></div>
+    <div class="fb_card"><i data-lucide="mail"></i><b>mail</b></div>
+    <div class="fb_card"><i data-lucide="phone"></i><b>phone</b></div>
+    <div class="fb_card"><i data-lucide="map-pin"></i><b>map-pin</b></div>
+    <div class="fb_card"><i data-lucide="crown"></i><b>crown</b></div>
+  </div>
+
+  <div class="fb_section_title"><strong>描边实验室</strong><span>SVG ONLY · 可交互</span></div>
+  <div class="fb_lab">
+    <strong>拖动滑杆调整全站描边粗细：</strong>
+    <input type="range" id="fb_stroke" min="1" max="3.5" step="0.25" value="2">
+    <output id="fb_stroke_val">2</output>
+  </div>
+
+  <div class="fb_code">
+    <div><span class="fb_c_tag">&lt;script</span> src="cdn/js/lucide.min.js"<span class="fb_c_tag">&gt;&lt;/script&gt;</span></div>
+    <div><span class="fb_c_tag">&lt;i</span> <span class="fb_c_cls">data-lucide="pen-tool"</span><span class="fb_c_tag">&gt;&lt;/i&gt;</span></div>
+    <div><span class="fb_c_tag">&lt;script&gt;</span>lucide.createIcons()<span class="fb_c_tag">&lt;/script&gt;</span> ← 占位标签被替换为内联 &lt;svg&gt;</div>
+  </div>
+  <p class="fb_note">SVG 是真矢量图形：可控制 stroke-width、stroke-dashoffset 做描边动画，还能多色渲染。</p>
+</main>
+
+<footer class="fb_footer">
+  <span>24002120314 樊博 · 高级网页设计</span>
+  <a class="fb_link_home" href="index.html">← index.html</a>
+</footer>
+
+<script src="cdn/js/lucide.min.js"></script>
+<script>
+const fb_slider = document.getElementById("fb_stroke");
+const fb_val = document.getElementById("fb_stroke_val");
+fb_slider.addEventListener("input", function () {
+  document.documentElement.style.setProperty("--fb-stroke", fb_slider.value);
+  fb_val.textContent = fb_slider.value;
+});
+lucide.createIcons();
+</script>
+</body>
+</html>

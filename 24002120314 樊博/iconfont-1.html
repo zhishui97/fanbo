@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>实心之美 · Font Awesome 字体图标</title>
+<link rel="stylesheet" href="cdn/css/all.min.css">
+<style>
+:root{--fb-paper:#f7f4ed;--fb-ink:#17252f;--fb-muted:#65747b;--fb-teal:#166b6b;--fb-teal-dark:#0f4b50;--fb-coral:#d96c4f;--fb-yellow:#f1c75b;--fb-line:#d8ddd7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{color:var(--fb-ink);background:radial-gradient(circle at 10% 8%,rgba(241,199,91,.3) 0 12rem,transparent 12.1rem),radial-gradient(circle at 90% 82%,rgba(217,108,79,.16) 0 16rem,transparent 16.1rem),var(--fb-paper);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.fb_topbar{display:flex;align-items:center;justify-content:space-between;width:min(1120px,calc(100% - 40px));margin:0 auto;padding:22px 0;font-size:14px;letter-spacing:.08em;color:var(--fb-teal-dark)}
+.fb_brand{display:inline-flex;align-items:center;gap:10px;font-weight:700}
+.fb_brand::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--fb-coral);box-shadow:8px 0 0 var(--fb-yellow)}
+.fb_link_home{padding:7px 14px;border:1px solid var(--fb-teal);border-radius:999px;transition:.25s}
+.fb_link_home:hover{background:var(--fb-teal);color:#fff}
+.fb_hero{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:52px 0 26px;display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:end}
+.fb_hero_num{font-size:clamp(90px,15vw,180px);line-height:.82;font-weight:900;color:var(--fb-teal);letter-spacing:-.04em}
+.fb_hero_num em{font-style:normal;color:var(--fb-coral)}
+.fb_tag{display:inline-block;margin-bottom:12px;padding:4px 12px;background:var(--fb-ink);color:var(--fb-yellow);font-size:12px;letter-spacing:.3em;border-radius:2px}
+.fb_hero h1{font-size:clamp(26px,4vw,42px);letter-spacing:.06em}
+.fb_hero p{color:var(--fb-muted);max-width:560px;margin-top:10px}
+.fb_marquee{overflow:hidden;border-block:1px solid var(--fb-line);background:#fff8ec;margin-top:24px}
+.fb_marquee_row{display:flex;gap:46px;width:max-content;padding:14px 0;animation:fb_slide 22s linear infinite}
+.fb_marquee_row i{font-size:26px;color:var(--fb-teal)}
+.fb_marquee_row i:nth-child(3n){color:var(--fb-coral)}
+.fb_marquee_row i:nth-child(3n+1){color:var(--fb-teal-dark)}
+@keyframes fb_slide{to{transform:translateX(-50%)}}
+.fb_shell{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:44px 0 26px}
+.fb_section_title{display:flex;align-items:baseline;gap:14px;margin:34px 0 18px}
+.fb_section_title strong{font-size:22px;letter-spacing:.08em}
+.fb_section_title span{color:var(--fb-muted);font-size:13px;letter-spacing:.2em}
+.fb_grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:14px}
+.fb_card{background:#fff;border:1px solid var(--fb-line);border-radius:12px;padding:22px 10px;text-align:center;transition:.28s}
+.fb_card i{font-size:34px;color:var(--fb-teal);transition:.28s}
+.fb_card b{display:block;margin-top:10px;font-size:13px;font-weight:600;color:var(--fb-muted);word-break:break-all}
+.fb_card:hover{transform:translateY(-6px);border-color:var(--fb-coral);box-shadow:0 14px 30px rgba(38,61,61,.14)}
+.fb_card:hover i{color:var(--fb-coral);transform:scale(1.18)}
+.fb_card:hover b{color:var(--fb-ink)}
+.fb_code{margin-top:36px;background:var(--fb-ink);color:#e8f1ee;border-radius:14px;padding:20px 24px;font-family:Consolas,monospace;font-size:14px;line-height:1.9;overflow:auto}
+.fb_c_tag{color:var(--fb-yellow)}
+.fb_c_cls{color:#7fd8c8}
+.fb_note{margin-top:14px;color:var(--fb-muted);font-size:13px}
+.fb_footer{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:28px 0 44px;border-top:1px solid var(--fb-line);display:flex;justify-content:space-between;align-items:center;color:var(--fb-muted);font-size:13px}
+</style>
+</head>
+<body>
+<header class="fb_topbar">
+  <span class="fb_brand">GLYPH LAB · 字形实验室</span>
+  <a class="fb_link_home" href="index.html">返回首页</a>
+</header>
+
+<section class="fb_hero">
+  <div class="fb_hero_num"><em>FA</em>01</div>
+  <div>
+    <span class="fb_tag">ICONFONT · FONT METHOD</span>
+    <h1>实心之美 —— Font Awesome 字体图标</h1>
+    <p>图标即文字：加载一次字体文件，图标就能像汉字一样随意变色、缩放、加投影，且矢量永不模糊。本页所有图标均由 CSS 字体渲染。</p>
+  </div>
+</section>
+
+<div class="fb_marquee" aria-hidden="true">
+  <div class="fb_marquee_row">
+    <i class="fa-solid fa-star"></i><i class="fa-solid fa-heart"></i><i class="fa-solid fa-bolt"></i><i class="fa-solid fa-music"></i><i class="fa-solid fa-camera-retro"></i><i class="fa-solid fa-fire"></i><i class="fa-solid fa-gift"></i><i class="fa-solid fa-crown"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-heart"></i><i class="fa-solid fa-bolt"></i><i class="fa-solid fa-music"></i><i class="fa-solid fa-camera-retro"></i><i class="fa-solid fa-fire"></i><i class="fa-solid fa-gift"></i><i class="fa-solid fa-crown"></i>
+  </div>
+</div>
+
+<main class="fb_shell">
+  <div class="fb_section_title"><strong>常用实心图标</strong><span>SOLID / 900 WEIGHT</span></div>
+  <div class="fb_grid">
+    <div class="fb_card"><i class="fa-solid fa-house"></i><b>fa-house</b></div>
+    <div class="fb_card"><i class="fa-solid fa-music"></i><b>fa-music</b></div>
+    <div class="fb_card"><i class="fa-solid fa-camera"></i><b>fa-camera</b></div>
+    <div class="fb_card"><i class="fa-solid fa-heart"></i><b>fa-heart</b></div>
+    <div class="fb_card"><i class="fa-solid fa-star"></i><b>fa-star</b></div>
+    <div class="fb_card"><i class="fa-solid fa-bolt"></i><b>fa-bolt</b></div>
+    <div class="fb_card"><i class="fa-solid fa-fire"></i><b>fa-fire</b></div>
+    <div class="fb_card"><i class="fa-solid fa-gift"></i><b>fa-gift</b></div>
+    <div class="fb_card"><i class="fa-solid fa-crown"></i><b>fa-crown</b></div>
+    <div class="fb_card"><i class="fa-solid fa-cloud"></i><b>fa-cloud</b></div>
+    <div class="fb_card"><i class="fa-solid fa-moon"></i><b>fa-moon</b></div>
+    <div class="fb_card"><i class="fa-solid fa-sun"></i><b>fa-sun</b></div>
+    <div class="fb_card"><i class="fa-solid fa-envelope"></i><b>fa-envelope</b></div>
+    <div class="fb_card"><i class="fa-solid fa-phone"></i><b>fa-phone</b></div>
+    <div class="fb_card"><i class="fa-solid fa-location-dot"></i><b>fa-location-dot</b></div>
+    <div class="fb_card"><i class="fa-solid fa-gear"></i><b>fa-gear</b></div>
+    <div class="fb_card"><i class="fa-solid fa-magnifying-glass"></i><b>fa-magnifying-glass</b></div>
+    <div class="fb_card"><i class="fa-solid fa-pen-nib"></i><b>fa-pen-nib</b></div>
+    <div class="fb_card"><i class="fa-solid fa-palette"></i><b>fa-palette</b></div>
+    <div class="fb_card"><i class="fa-solid fa-feather"></i><b>fa-feather</b></div>
+  </div>
+
+  <div class="fb_section_title"><strong>品牌图标</strong><span>BRANDS / 400 WEIGHT</span></div>
+  <div class="fb_grid">
+    <div class="fb_card"><i class="fa-brands fa-github"></i><b>fa-github</b></div>
+    <div class="fb_card"><i class="fa-brands fa-weixin"></i><b>fa-weixin</b></div>
+    <div class="fb_card"><i class="fa-brands fa-weibo"></i><b>fa-weibo</b></div>
+    <div class="fb_card"><i class="fa-brands fa-qq"></i><b>fa-qq</b></div>
+    <div class="fb_card"><i class="fa-brands fa-chrome"></i><b>fa-chrome</b></div>
+    <div class="fb_card"><i class="fa-brands fa-apple"></i><b>fa-apple</b></div>
+    <div class="fb_card"><i class="fa-brands fa-android"></i><b>fa-android</b></div>
+    <div class="fb_card"><i class="fa-brands fa-html5"></i><b>fa-html5</b></div>
+  </div>
+
+  <div class="fb_code">
+    <div><span class="fb_c_tag">&lt;link</span> rel="stylesheet" href="cdn/css/all.min.css"<span class="fb_c_tag">&gt;</span></div>
+    <div><span class="fb_c_tag">&lt;i</span> <span class="fb_c_cls">class="fa-solid fa-music"</span><span class="fb_c_tag">&gt;&lt;/i&gt;</span> ← 一个 i 标签就是一枚字体图标</div>
+  </div>
+  <p class="fb_note">字体图标本质是文字：用 font-size 缩放、color 换色、text-shadow 发光，渲染成本极低。</p>
+</main>
+
+<footer class="fb_footer">
+  <span>24002120314 樊博 · 高级网页设计</span>
+  <a class="fb_link_home" href="index.html">← index.html</a>
+</footer>
+</body>
+</html>
