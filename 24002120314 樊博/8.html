@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--
+  作者：樊博
+  建立时间：2026-11-04
+  使用大模型：DeepSeek-V4.1-Flash
+  功能名称：音乐手机新闻选项卡（经典门户列表一比一还原）
+  功能说明：还原「音乐手机」栏目的行情/导购/新品/评测四个选项卡，选项卡切换逻辑复用外部 js/fb_tab.js。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐手机 · 新闻选项卡</title>
+<style>
+/* ===== 作者：樊博 · 建立时间：2026-11-04 · 大模型：DeepSeek-V4.1-Flash ===== */
+/* 全站基础重置与经典宋体正文 */
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#333;font:14px/1.5 Tahoma,Arial,"宋体",SimSun,sans-serif}
+
+/* 栏目外框：宽度按参考图测量为 375px，窄屏下自动收缩避免横向滚动 */
+.fb_music{width:375px;max-width:100%;margin:28px auto 0;background:#fff}
+
+/* 表头：左侧标题 + 右侧选项卡，底色使用参考素材 bg20.gif（24px 白色竖条平铺） */
+.fb_music_head{display:flex;align-items:flex-end;justify-content:space-between;height:31px;padding-right:21px;border-top:1px solid #A1CAF8;border-bottom:1px solid #A1CAF8;background:url(img/bg20.gif) repeat-x 0 0}
+.fb_music_title{margin:0 0 7px 30px;color:#333;font-size:14px;font-weight:700;line-height:1}
+
+/* 选项卡组：四个 50×22 的按钮，彼此用 1px 边框分隔 */
+.fb_tab_head{display:flex}
+.fb_tab_item{width:50px;height:22px;margin-left:-1px;padding:0;border:1px solid #D6D6D6;border-bottom:0;background:url(img/bg21.gif) repeat-x 0 0;color:#333;font:12px/20px "宋体",SimSun;text-align:center;cursor:pointer}
+.fb_tab_item:first-child{margin-left:0}
+/* 选中态：浅蓝底色（bg22.gif）+ 蓝色边框 + 蓝色加粗文字，并向下压 1px 与分隔线贴合 */
+.fb_tab_item.fb_active{position:relative;top:1px;height:23px;border-color:#A7C3E2;background:url(img/bg22.gif) repeat-x 0 0;color:#0066B3;font-weight:700;line-height:21px}
+
+/* 内容面板：默认隐藏，只有带 fb_active 的显示（由 js/fb_tab.js 切换该类） */
+.fb_tab_panel{display:none}
+.fb_tab_panel.fb_active{display:block}
+
+/* 新闻列表：无项目符号，行高 26px，蓝色小方块使用素材 dot.gif 的第 2 枚（纵向偏移 -58px） */
+.fb_news_list{margin:0;padding:12px 0 8px;list-style:none}
+.fb_news_item{position:relative;padding:0 58px 0 25px;line-height:26px;font-size:14px;background:url(img/dot.gif) no-repeat 16px -58px}
+.fb_news_link{color:#0066B3;text-decoration:none}
+/* 悬停：文字转红并加下划线，与参考图第 3 张一致 */
+.fb_news_link:hover{color:#CC0000;text-decoration:underline}
+.fb_news_date{position:absolute;top:0;right:9px;color:#999;font:12px/26px Tahoma,Arial,sans-serif}
+
+/* 返回首页入口：按课程规则必备，样式保持低调不干扰还原效果 */
+.fb_back_home{display:block;width:375px;margin:16px auto 40px;color:#999;font-size:12px;text-align:center;text-decoration:none}
+.fb_back_home:hover{color:#0066B3;text-decoration:underline}
+</style>
+</head>
+<body>
+<!-- 栏目容器即选项卡组件容器：内部同时包含选项卡按钮与内容面板 -->
+<section class="fb_music fb_tab" aria-label="音乐手机新闻栏目">
+  <header class="fb_music_head">
+    <h1 class="fb_music_title">音乐手机</h1>
+    <div class="fb_tab_head" role="tablist" aria-label="音乐手机分类">
+      <button class="fb_tab_item fb_active" type="button" role="tab" aria-selected="true" data-fb_target="fb_panel_hq">行情</button>
+      <button class="fb_tab_item" type="button" role="tab" aria-selected="false" data-fb_target="fb_panel_dg">导购</button>
+      <button class="fb_tab_item" type="button" role="tab" aria-selected="false" data-fb_target="fb_panel_xp">新品</button>
+      <button class="fb_tab_item" type="button" role="tab" aria-selected="false" data-fb_target="fb_panel_pc">评测</button>
+    </div>
+  </header>
+
+  <!-- 行情：默认选中的面板 -->
+  <div class="fb_tab_panel fb_active" id="fb_panel_hq" role="tabpanel">
+    <ul class="fb_news_list">
+      <li class="fb_news_item"><a class="fb_news_link" href="#">音乐强机苹果iPhone 5s价格稳定</a><span class="fb_news_date">(12/19)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">高性能双四核音乐机 魅族MX3低价热卖</a><span class="fb_news_date">(12/19)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">音乐品质最出色 vivo X3促销2199</a><span class="fb_news_date">(12/12)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">时尚音乐手机 vivo Xplay济南2798元</a><span class="fb_news_date">(11/27)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">好音乐好拍照 OPPO Find5今报价2580元</a><span class="fb_news_date">(08/27)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">1.5GHz四核1080p OPPO Find 5降价热卖</a><span class="fb_news_date">(07/30)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">彩色呼吸带双核机 索尼M35h促销2299</a><span class="fb_news_date">(06/08)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">1.7GHz四核1080p屏 vivo Xplay热卖中</a><span class="fb_news_date">(06/07)</span></li>
+    </ul>
+  </div>
+
+  <!-- 导购 -->
+  <div class="fb_tab_panel" id="fb_panel_dg" role="tabpanel">
+    <ul class="fb_news_list">
+      <li class="fb_news_item"><a class="fb_news_link" href="#">优秀音效漂亮外观 市售音乐手机盘点</a><span class="fb_news_date">(09/13)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">不要虐待耳朵 8款独特音效的音乐手机荐</a><span class="fb_news_date">(09/06)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">最低只要799 9款高性能音乐手机推荐</a><span class="fb_news_date">(07/22)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">长假主导后高考时代 奖励孩子的智能手机全攻略</a><span class="fb_news_date">(06/13)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">降价不限时 端午后值得关注降价四核机推荐</a><span class="fb_news_date">(06/13)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">高考之后尽情狂欢! 学生超强手机推荐</a><span class="fb_news_date">(06/13)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">上半年看这里 最热1080P四核旗舰手机</a><span class="fb_news_date">(06/13)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">最厚不过7.99毫米 热门超薄强机大搜罗</a><span class="fb_news_date">(06/08)</span></li>
+    </ul>
+  </div>
+
+  <!-- 新品 -->
+  <div class="fb_tab_panel" id="fb_panel_xp" role="tabpanel">
+    <ul class="fb_news_list">
+      <li class="fb_news_item"><a class="fb_news_link" href="#">无限接近完美! vivo Xplay3S现场体验</a><span class="fb_news_date">(12/19)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">入门音乐机 诺基亚Lumia 525现身工信部</a><span class="fb_news_date">(11/05)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">传诺基亚下月将推首款WP音乐手机Glee</a><span class="fb_news_date">(09/29)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">软硬兼施 vivo Xtudio Hi-Fi音乐圈讲解</a><span class="fb_news_date">(08/23)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">没有中国 谷歌All Access音乐服务登欧洲</a><span class="fb_news_date">(08/09)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">Hi-Fi录音棚 vivo X3创Xtudio音乐系统</a><span class="fb_news_date">(08/07)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">Hi-Fi不够vivo又玩录音棚 X3音乐处理方案曝光</a><span class="fb_news_date">(08/06)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">小伙伴都惊呆了 薄至6mm以下vivo X3终露面</a><span class="fb_news_date">(07/31)</span></li>
+    </ul>
+  </div>
+
+  <!-- 评测 -->
+  <div class="fb_tab_panel" id="fb_panel_pc" role="tabpanel">
+    <ul class="fb_news_list">
+      <li class="fb_news_item"><a class="fb_news_link" href="#">音乐历久弥新 TD版魅族MX3评测</a><span class="fb_news_date">(12/19)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">极致影音完美音质 步步高vivo Xplay移动版图赏</a><span class="fb_news_date">(07/24)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">都是大屏何不同? 三星S4/Mega静态评测</a><span class="fb_news_date">(06/20)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">超值四核智能机 HTC Desire 608t评测</a><span class="fb_news_date">(06/20)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">完美融合微博 魅族MX2 Flyme 2.2.5体验</a><span class="fb_news_date">(06/18)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">1080p屏Hi-Fi旗舰 vivo Xplay娱乐体验</a><span class="fb_news_date">(06/13)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">5.7英寸高清巨屏 酷派9070+XO影音体验</a><span class="fb_news_date">(06/06)</span></li>
+      <li class="fb_news_item"><a class="fb_news_link" href="#">悬浮窗口播放 vivo Xplay视频功能体验</a><span class="fb_news_date">(06/06)</span></li>
+    </ul>
+  </div>
+</section>
+
+<a class="fb_back_home" href="index.html">← 返回首页 index.html</a>
+
+<!-- 作者：樊博 · 选项卡切换逻辑复用可复用组件 js/fb_tab.js -->
+<script src="js/fb_tab.js"></script>
+</body>
+</html>

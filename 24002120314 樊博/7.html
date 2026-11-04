@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--
+  作者：樊博
+  建立时间：2026-11-04
+  使用大模型：DeepSeek-V4.1-Flash
+  功能名称：Tab 选项卡新闻页
+  功能说明：使用外部 js/fb_tab.js 实现的新闻分类选项卡，含国内、省内、国际、最热四栏，国内新闻为默认选中。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="樊博 · 高级网页设计 · Tab 选项卡课堂练习">
+<title>新闻分类 · Tab 选项卡</title>
+<style>
+:root{--fb_paper:#f7f4ed;--fb_ink:#17252f;--fb_muted:#65747b;--fb_teal:#166b6b;--fb_teal_dark:#0f4b50;--fb_coral:#d96c4f;--fb_yellow:#f1c75b;--fb_line:#d8ddd7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{color:var(--fb_ink);background:radial-gradient(circle at 10% 8%,rgba(241,199,91,.28) 0 11rem,transparent 11.1rem),radial-gradient(circle at 92% 78%,rgba(217,108,79,.14) 0 14rem,transparent 14.1rem),var(--fb_paper);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.fb_topbar{display:flex;align-items:center;justify-content:space-between;width:min(880px,calc(100% - 40px));margin:0 auto;padding:22px 0;color:var(--fb_teal_dark);font-size:14px;letter-spacing:.08em}
+.fb_brand{display:inline-flex;align-items:center;gap:10px;font-weight:700}
+.fb_brand::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--fb_coral);box-shadow:8px 0 0 var(--fb_yellow)}
+.fb_link_home{padding:7px 14px;border:1px solid var(--fb_teal);border-radius:999px;transition:.25s}
+.fb_link_home:hover{background:var(--fb_teal);color:#fff}
+.fb_hero{width:min(880px,calc(100% - 40px));margin:0 auto;padding:44px 0 22px}
+.fb_tag{display:inline-block;margin-bottom:12px;padding:4px 12px;background:var(--fb_ink);color:var(--fb_yellow);font-size:12px;letter-spacing:.28em;border-radius:2px}
+.fb_hero h1{font-size:clamp(28px,5vw,42px);letter-spacing:.04em;color:var(--fb_teal_dark)}
+.fb_hero p{max-width:560px;margin-top:10px;color:var(--fb_muted);font-size:15px}
+.fb_shell{width:min(880px,calc(100% - 40px));margin:0 auto;padding:14px 0 40px}
+
+/* ===== 选项卡组件样式（结构与 js/fb_tab.js 的约定一一对应） ===== */
+.fb_tab{background:#fff;border:1px solid var(--fb_line);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px rgba(38,61,61,.1)}
+.fb_tab_head{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--fb_line);background:#fbf9f4}
+.fb_tab_item{flex:1 1 auto;min-width:96px;padding:15px 10px;border:0;background:transparent;color:var(--fb_muted);font-family:inherit;font-size:15px;letter-spacing:.04em;cursor:pointer;position:relative;transition:color .2s ease,background .2s ease}
+.fb_tab_item::after{content:"";position:absolute;left:50%;bottom:0;width:0;height:3px;background:var(--fb_coral);border-radius:2px 2px 0 0;transform:translateX(-50%);transition:width .25s ease}
+.fb_tab_item:hover{color:var(--fb_teal_dark);background:rgba(22,107,107,.06)}
+.fb_tab_item.fb_active{color:var(--fb_teal);font-weight:700;background:#fff}
+.fb_tab_item.fb_active::after{width:60%}
+.fb_tab_panel{display:none;padding:8px 22px 22px}
+.fb_tab_panel.fb_active{display:block;animation:fb_fade .3s ease}
+@keyframes fb_fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.fb_news_item{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px dashed var(--fb_line)}
+.fb_news_item:last-child{border-bottom:0;padding-bottom:4px}
+.fb_news_time{flex:none;width:52px;color:var(--fb_coral);font-family:Consolas,monospace;font-size:12px;line-height:1.9}
+.fb_news_body b{display:block;font-size:15px;font-weight:600;color:var(--fb_teal_dark);transition:color .2s ease}
+.fb_news_item:hover b{color:var(--fb_coral)}
+.fb_news_body span{display:block;margin-top:4px;color:var(--fb_muted);font-size:13px}
+.fb_news_hot{margin-left:6px;padding:1px 6px;border-radius:3px;background:var(--fb_coral);color:#fff;font-size:11px;font-weight:400;vertical-align:1px}
+
+.fb_note{width:min(880px,calc(100% - 40px));margin:0 auto;padding:16px 20px;border-left:4px solid var(--fb_yellow);background:rgba(255,255,255,.55);color:var(--fb_muted);font-size:13px}
+.fb_note code{color:var(--fb_teal_dark);font-family:Consolas,monospace}
+.fb_footer{width:min(880px,calc(100% - 40px));margin:0 auto;padding:26px 0 44px;display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid var(--fb_line);color:var(--fb_muted);font-size:13px}
+@media (max-width:600px){
+.fb_tab_head{flex-wrap:nowrap}
+.fb_tab_item{min-width:0;padding:13px 4px;font-size:13px;letter-spacing:0}
+.fb_tab_panel{padding:8px 14px 18px}
+.fb_news_time{width:44px;font-size:11px}
+.fb_footer{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<header class="fb_topbar">
+  <span class="fb_brand">新闻分类 · TAB 选项卡</span>
+  <a class="fb_link_home" href="index.html">返回首页</a>
+</header>
+
+<section class="fb_hero">
+  <span class="fb_tag">JAVASCRIPT · 外部引入</span>
+  <h1>新闻分类选项卡</h1>
+  <p>选项卡逻辑写在独立的 <code>js/fb_tab.js</code> 中，页面只负责结构与样式；组件按容器扫描初始化，同一个页面放多个选项卡也不会互相干扰。</p>
+</section>
+
+<main class="fb_shell">
+  <div class="fb_tab" id="fb_news">
+    <div class="fb_tab_head" role="tablist" aria-label="新闻分类">
+      <button class="fb_tab_item fb_active" type="button" role="tab" aria-selected="true" data-fb_target="fb_panel_cn">国内新闻</button>
+      <button class="fb_tab_item" type="button" role="tab" aria-selected="false" data-fb_target="fb_panel_prov">省内新闻</button>
+      <button class="fb_tab_item" type="button" role="tab" aria-selected="false" data-fb_target="fb_panel_world">国际新闻</button>
+      <button class="fb_tab_item" type="button" role="tab" aria-selected="false" data-fb_target="fb_panel_hot">最热新闻</button>
+    </div>
+
+    <div class="fb_tab_panel fb_active" id="fb_panel_cn" role="tabpanel" aria-labelledby="fb_panel_cn">
+      <article class="fb_news_item">
+        <span class="fb_news_time">09:20</span>
+        <div class="fb_news_body">
+          <b>全国多地推进城市更新试点</b>
+          <span>首批试点城市公布年度改造清单，老旧小区加装电梯与管网更新同步展开。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">08:45</span>
+        <div class="fb_news_body">
+          <b>高校秋季学期实践课程全面展开</b>
+          <span>多所院校将课堂搬进企业车间，项目制教学覆盖到低年级学生。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">07:30</span>
+        <div class="fb_news_body">
+          <b>移动端页面设计规范迎来更新</b>
+          <span>新版规范强调安全区适配与底部导航的可点击区域，建议开发者提前适配。</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="fb_tab_panel" id="fb_panel_prov" role="tabpanel" aria-labelledby="fb_panel_prov">
+      <article class="fb_news_item">
+        <span class="fb_news_time">10:10</span>
+        <div class="fb_news_body">
+          <b>本省新增三处省级文化街区</b>
+          <span>街区保留原有建筑肌理，引入非遗工坊与青年创意空间。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">09:05</span>
+        <div class="fb_news_body">
+          <b>省内高校联合举办网页设计展</b>
+          <span>展览集中呈现二十余所高校的学生作品，涵盖交互与视觉两个单元。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">08:00</span>
+        <div class="fb_news_body">
+          <b>秋收期间农业气象服务上线</b>
+          <span>气象部门按县域推送作业窗口建议，帮助农户错峰安排收割。</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="fb_tab_panel" id="fb_panel_world" role="tabpanel" aria-labelledby="fb_panel_world">
+      <article class="fb_news_item">
+        <span class="fb_news_time">11:40</span>
+        <div class="fb_news_body">
+          <b>全球开发者大会公布新一批开源项目</b>
+          <span>多家机构联合发布前端工具链与无障碍组件库，均采用宽松开源协议。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">10:25</span>
+        <div class="fb_news_body">
+          <b>国际设计周聚焦可持续材料</b>
+          <span>展品大量使用回收纸浆与再生纤维，展陈本身也采用可拆装结构。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">09:15</span>
+        <div class="fb_news_body">
+          <b>多国推进公共交通无障碍改造</b>
+          <span>车站导视系统升级为高对比配色，并同步提供多语言语音提示。</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="fb_tab_panel" id="fb_panel_hot" role="tabpanel" aria-labelledby="fb_panel_hot">
+      <article class="fb_news_item">
+        <span class="fb_news_time">12:30</span>
+        <div class="fb_news_body">
+          <b>学生作品集网站走红<span class="fb_news_hot">热</span></b>
+          <span>一套纯手写 CSS 的移动端作品集，因底部导航交互细节被大量转发。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">11:10</span>
+        <div class="fb_news_body">
+          <b>字体图标与 SVG 图标之争再被讨论<span class="fb_news_hot">热</span></b>
+          <span>开发者实测：字体图标渲染快，SVG 更利于描边动画与多色渲染。</span>
+        </div>
+      </article>
+      <article class="fb_news_item">
+        <span class="fb_news_time">09:50</span>
+        <div class="fb_news_body">
+          <b>可复用组件写法成为课堂重点<span class="fb_news_hot">热</span></b>
+          <span>教师演示了同一份选项卡脚本支撑多个容器，强调先复位再选中的切换顺序。</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
+
+<p class="fb_note">
+  组件约定：容器 <code>.fb_tab</code>，按钮 <code>.fb_tab_item</code> 加 <code>data-fb_target</code> 指向面板 id，面板 <code>.fb_tab_panel</code>，默认项加 <code>.fb_active</code>。再放一个 <code>.fb_tab</code> 容器即可复用同一套脚本。
+</p>
+
+<footer class="fb_footer">
+  <span>24002120314 樊博 · 高级网页设计</span>
+  <a class="fb_link_home" href="index.html">← index.html</a>
+</footer>
+
+<script src="js/fb_tab.js"></script>
+</body>
+</html>
