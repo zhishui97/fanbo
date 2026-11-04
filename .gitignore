@@ -19,3 +19,6 @@ bin-release/
 
 # Claude Code 本地设置（个人权限，不提交）
 **/.claude/settings.local.json
+
+# Windows 缩略图缓存
+Thumbs.db
