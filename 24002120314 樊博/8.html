@@ -21,27 +21,29 @@ body{margin:0;background:#fff;color:#333;font:14px/1.5 Tahoma,Arial,"宋体",Sim
 .fb_music{width:375px;max-width:100%;margin:28px auto 0;background:#fff}
 
 /* 表头：左侧标题 + 右侧选项卡，底色使用参考素材 bg20.gif（24px 白色竖条平铺） */
-.fb_music_head{display:flex;align-items:flex-end;justify-content:space-between;height:31px;padding-right:21px;border-top:1px solid #A1CAF8;border-bottom:1px solid #A1CAF8;background:url(img/bg20.gif) repeat-x 0 0}
-.fb_music_title{margin:0 0 7px 30px;color:#333;font-size:14px;font-weight:700;line-height:1}
+.fb_music_head{display:flex;align-items:flex-end;justify-content:space-between;height:33px;padding-right:21px;border-top:1px solid #A1CAF8;border-bottom:1px solid #A1CAF8;background:url(img/bg20.gif) repeat-x 0 0}
+.fb_music_title{margin:0 0 5px 30px;color:#333;font-size:14px;font-weight:700;line-height:1}
 
-/* 选项卡组：四个 50×22 的按钮，彼此用 1px 边框分隔 */
-.fb_tab_head{display:flex}
-.fb_tab_item{width:50px;height:22px;margin-left:-1px;padding:0;border:1px solid #D6D6D6;border-bottom:0;background:url(img/bg21.gif) repeat-x 0 0;color:#333;font:12px/20px "宋体",SimSun;text-align:center;cursor:pointer}
-.fb_tab_item:first-child{margin-left:0}
-/* 选中态：浅蓝底色（bg22.gif）+ 蓝色边框 + 蓝色加粗文字，并向下压 1px 与分隔线贴合 */
-.fb_tab_item.fb_active{position:relative;top:1px;height:23px;border-color:#A7C3E2;background:url(img/bg22.gif) repeat-x 0 0;color:#0066B3;font-weight:700;line-height:21px}
+/* 选项卡组：参考图中四个按钮各自独立成框，宽 48px、间距 2px（合计 198px 与图一致） */
+.fb_tab_head{display:flex;gap:2px}
+.fb_tab_item{display:flex;align-items:center;justify-content:center;width:48px;height:22px;padding:0;border:1px solid #D6D6D6;background:url(img/bg21.gif) repeat-x 0 0;color:#333;font:12px/1 "宋体",SimSun;cursor:pointer}
+/* 选中态：浅蓝底色（bg22.gif）+ 蓝色边框 + 蓝色加粗文字 */
+.fb_tab_item.fb_active{border-color:#A7C3E2;background:url(img/bg22.gif) repeat-x 0 0;color:#0066B3;font-weight:700}
 
 /* 内容面板：默认隐藏，只有带 fb_active 的显示（由 js/fb_tab.js 切换该类） */
 .fb_tab_panel{display:none}
 .fb_tab_panel.fb_active{display:block}
 
-/* 新闻列表：无项目符号，行高 26px，蓝色小方块使用素材 dot.gif 的第 2 枚（纵向偏移 -58px） */
+/* 新闻列表：无项目符号，行高 26px，字号 14px（与参考图文字像素高度一致） */
 .fb_news_list{margin:0;padding:12px 0 8px;list-style:none}
-.fb_news_item{position:relative;padding:0 58px 0 25px;line-height:26px;font-size:14px;background:url(img/dot.gif) no-repeat 16px -58px}
+.fb_news_item{position:relative;padding:0 58px 0 23px;line-height:26px;font-size:14px}
+/* 项目符号：素材 dot.gif 的圆点位于精灵图 x=5~7、y=58~60，故背景偏移 -5px -58px；
+   用 top:50% + 负外边距把 3px 方块垂直居中到文字行（文字 14px 时正好与参考图圆点位置一致） */
+.fb_news_item::before{content:"";position:absolute;left:16px;top:50%;width:3px;height:3px;margin-top:-2px;background:url(img/dot.gif) no-repeat -5px -58px}
 .fb_news_link{color:#0066B3;text-decoration:none}
 /* 悬停：文字转红并加下划线，与参考图第 3 张一致 */
 .fb_news_link:hover{color:#CC0000;text-decoration:underline}
-.fb_news_date{position:absolute;top:0;right:9px;color:#999;font:12px/26px Tahoma,Arial,sans-serif}
+.fb_news_date{position:absolute;top:0;right:5px;color:#999;font:12px/26px Tahoma,Arial,sans-serif}
 
 /* 返回首页入口：按课程规则必备，样式保持低调不干扰还原效果 */
 .fb_back_home{display:block;width:375px;margin:16px auto 40px;color:#999;font-size:12px;text-align:center;text-decoration:none}
