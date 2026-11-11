@@ -82,6 +82,12 @@
   }
   .wy-fx button:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(29,91,191,.18)}
   .wy-fx button.wy-on{background:linear-gradient(135deg,#0f2b5b,#1d5bbf);color:#fff;border-color:transparent}
+
+  /* 演示五：竖向轮播 */
+  .wy-vswiper{max-width:420px}
+  .wy-vswiper .swiper{height:360px}
+  .wy-vswiper .swiper-slide{height:100%}
+  .wy-vswiper .swiper-pagination-bullet-active{width:8px;height:22px;border-radius:6px}
   /* 第 7 个「creative · 课堂未讲」按钮：用暖色区分，右上角标 NEW */
   .wy-fx button.wy-new{border-color:#f0a83c;background:#fffaf0;color:#b45309;position:relative}
   .wy-fx button.wy-new::after{content:"NEW";position:absolute;top:-9px;right:-8px;background:#e8890c;color:#fff;font-size:10px;line-height:1;padding:3px 6px;border-radius:999px;letter-spacing:1px}
@@ -246,11 +252,36 @@
       </div>
       <p class="wy-txt" style="margin-top:12px;text-align:center;color:#6b7280;font-size:13px">⌨️ 键盘控制：先用鼠标点一下轮播图，再按 <code>←</code> / <code>→</code> 方向键翻页</p>
     </div>
+
+    <!-- 演示五：竖向轮播 -->
+    <div class="wy-demo">
+      <span class="wy-demo-tag">🎛️ 演示五 · 换一种展示方式：竖向轮播（上下翻 + 滚轮翻）</span>
+      <p class="wy-txt">同一组展品换一个"讲法"：把 <code>direction</code> 改成 <code>'vertical'</code>，轮播就从左右翻变成上下翻，像手机里的信息流。竖向轮播必须给容器<b>写死高度</b>（这里 <code>height:360px</code>），否则容器会被内容撑开、翻不动。</p>
+      <div class="wy-req">
+        <h3>✍️ 拓展要求</h3>
+        <p>初始化 <code>#wySw5</code>：<b>① 竖向翻页</b>（<code>direction:'vertical'</code>）<b>② 循环</b>（loop）<b>③ 滚轮可翻</b>（<code>mousewheel</code>）<b>④ 右侧竖向圆点可点</b>（pagination）。</p>
+        <span class="wy-star">⭐ 验证标准：上下拖动可翻、鼠标滚轮可翻、点右侧圆点可跳转、翻到第 6 张继续往下会回到第 1 张</span>
+      </div>
+      <div class="wy-swiper wy-vswiper">
+        <div class="swiper" id="wySw5">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="swiper-imgs/tiangong_1.jpg" alt="天宫空间站"><div class="wy-cap"><h3>天宫空间站</h3><p>竖向轮播 · 上下拖动试试</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/fuxing_1.jpg" alt="复兴号动车组"><div class="wy-cap"><h3>复兴号动车组</h3><p>像刷信息流一样，一张接一张</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/c919_1.jpg" alt="C919大飞机"><div class="wy-cap"><h3>C919 大飞机</h3><p>门户网站首屏常用竖向滚动</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/fendouzhe_1.jpg" alt="奋斗者号"><div class="wy-cap"><h3>奋斗者号</h3><p>手机端上下滑更顺手</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/fast_1.jpg" alt="中国天眼"><div class="wy-cap"><h3>中国天眼 FAST</h3><p>滚轮也能翻页（mousewheel）</p></div></div>
+            <div class="swiper-slide"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=A%20grand%20Chinese-built%20cruise%20ship%20sailing%20on%20the%20open%20sea%20at%20golden%20hour%2C%20modern%20white%20cruise%20liner%20with%20blue%20hull%2C%20large%20panoramic%20windows%2C%20calm%20ocean%20waves%2C%20cinematic%20realistic%20photography%2C%20wide%20angle%20side%20view%2C%20warm%20sunset%20light%2C%20high%20detail&image_size=landscape_16_9" alt="爱达·魔都号"><div class="wy-cap"><h3>爱达·魔都号</h3><p>第六件展品 · 配图由 AI 生成</p></div></div>
+          </div>
+          <div class="swiper-pagination" id="wyPag5"></div>
+        </div>
+      </div>
+      <p class="wy-txt" style="margin-top:12px;text-align:center;color:#6b7280;font-size:13px">↕️ 竖向操作：上下拖动 / 鼠标滚轮 / 点右侧圆点</p>
+    </div>
   </div>
 
   <div class="wy-back"><a href="index.html">← 返回课堂实践中心</a>　<a href="swiper-task-notes.html">查看任务记录（提示词 / creative 说明 / 答辩） →</a></div>
 
-  <footer>Swiper 课堂操作任务 · 大国重器光影展（学生版） · 高级网页设计 · 2026-2027-1<br>版本 v3 · 2026-11-11 合并版（七种效果 + creative 电影墙 / 键盘控制 / 第六件展品 / 连续切换稳定性修复）</footer>
+  <footer>Swiper 课堂操作任务 · 大国重器光影展（学生版） · 高级网页设计 · 2026-2027-1<br>版本 v4 · 2026-11-11（七种效果 + creative 电影墙 / 键盘控制 / 第六件展品 / 竖向轮播演示五 / 连续切换稳定性修复）</footer>
 </div>
 
 <script>
@@ -344,6 +375,16 @@
       // 用新 effect 重建实例（把其它配置原样保留）
       wySw4 = new Swiper(wySw4El, wySw4Options(btn.dataset.fx));
     });
+  });
+
+  // ── 演示五（拓展）：竖向轮播 ──
+  // 功能：direction 设为 vertical 让轮播改为上下翻页，mousewheel 打开滚轮翻页，右侧圆点可点击
+  var wySw5 = new Swiper('#wySw5', {
+    direction: 'vertical',
+    loop: true,
+    speed: 700,
+    mousewheel: { forceToAxis: true },
+    pagination: { el: '#wyPag5', clickable: true }
   });
 </script>
 </body>
