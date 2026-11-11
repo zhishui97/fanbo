@@ -82,6 +82,10 @@
   }
   .wy-fx button:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(29,91,191,.18)}
   .wy-fx button.wy-on{background:linear-gradient(135deg,#0f2b5b,#1d5bbf);color:#fff;border-color:transparent}
+  /* 第 7 个「creative · 课堂未讲」按钮：用暖色区分，右上角标 NEW */
+  .wy-fx button.wy-new{border-color:#f0a83c;background:#fffaf0;color:#b45309;position:relative}
+  .wy-fx button.wy-new::after{content:"NEW";position:absolute;top:-9px;right:-8px;background:#e8890c;color:#fff;font-size:10px;line-height:1;padding:3px 6px;border-radius:999px;letter-spacing:1px}
+  .wy-fx button.wy-new.wy-on{background:linear-gradient(135deg,#b45309,#e8890c);color:#fff;border-color:transparent}
 
   .wy-back{text-align:center;margin-top:28px}
   .wy-back a{display:inline-block;text-decoration:none;color:#0f2b5b;font-size:14.5px;font-weight:bold;background:#fff;border:1px solid #dbe4ff;border-radius:999px;padding:10px 26px;transition:transform .2s,box-shadow .2s}
@@ -222,8 +226,9 @@
       <button data-fx="coverflow">coverflow 画廊堆叠（沉浸）</button>
       <button data-fx="flip">flip 翻页（复古）</button>
       <button data-fx="cards">cards 卡片（俏皮）</button>
-      <button data-fx="creative">creative 电影墙（自定义·课堂未讲）</button>
+      <button class="wy-new" data-fx="creative">creative 电影墙（自定义·课堂未讲）</button>
     </div>
+    <p class="wy-txt" style="margin:10px 0 0;font-size:12.5px;color:#9ca3af">这里本应有 <b>7 个</b>按钮（最后一个带 NEW 角标）。如果你只看到 6 个，说明浏览器用的是旧缓存，按 <b>Ctrl + F5</b>（Mac：⌘ + Shift + R）强制刷新即可。</p>
     <div class="wy-demo">
       <span class="wy-demo-tag">🎛️ 演示四 · 效果实验台（点按钮切换 effect）</span>
       <div class="wy-swiper">
@@ -245,7 +250,7 @@
 
   <div class="wy-back"><a href="index.html">← 返回课堂实践中心</a>　<a href="swiper-task-notes.html">查看任务记录（提示词 / creative 说明 / 答辩） →</a></div>
 
-  <footer>Swiper 课堂操作任务 · 大国重器光影展（学生版） · 高级网页设计 · 2026-2027-1</footer>
+  <footer>Swiper 课堂操作任务 · 大国重器光影展（学生版） · 高级网页设计 · 2026-2027-1<br>版本 v2 · 2026-11-11 更新（新增 creative 电影墙 / 键盘控制 / 第六件展品）</footer>
 </div>
 
 <script>
