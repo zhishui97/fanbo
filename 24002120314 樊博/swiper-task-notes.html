@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--
+  作者：24002120314
+  建立时间：2026-11-11
+  使用大模型：DeepSeek-V4.1-Flash
+  功能名称：Swiper 课堂任务记录（提示词迭代 / creative 说明 / 综合创作与答辩）
+  功能说明：记录三关任务的过程与结论——任务一提示词两轮迭代与验证、任务二 creative 电影墙的 prev/next 说明、任务三第六件展品与键盘控制的实现与答辩预答。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swiper 课堂任务记录 · 大国重器光影展</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#f6f8fc;color:#1f2937}
+  .wy-wrap{max-width:1000px;margin:0 auto;padding:40px 20px 60px}
+
+  .wy-head{background:linear-gradient(135deg,#0f2b5b,#1d5bbf);border-radius:20px;padding:36px 38px;color:#fff;margin-bottom:22px;box-shadow:0 12px 30px rgba(15,43,91,.3)}
+  .wy-head .wy-badge{display:inline-block;padding:5px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);font-size:13px;letter-spacing:2px;margin-bottom:14px}
+  .wy-head h1{font-size:29px;letter-spacing:1px;line-height:1.4}
+  .wy-head h1 b{color:#ffd166}
+  .wy-head p{margin-top:12px;font-size:14.5px;color:#d9e3f5;line-height:2}
+  .wy-goals{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .wy-goals i{font-style:normal;font-size:13px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);padding:6px 14px;border-radius:8px}
+
+  .wy-sec{background:#fff;border-radius:18px;padding:28px 30px;margin-bottom:22px;border:1px solid #e8ecf5;box-shadow:0 4px 14px rgba(31,41,55,.06);position:relative;overflow:hidden}
+  .wy-sec::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(#0f2b5b,#1d5bbf)}
+  .wy-sec-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+  .wy-sec-head .wy-no{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#0f2b5b,#1d5bbf);color:#fff;font-size:19px;font-weight:bold;display:flex;align-items:center;justify-content:center}
+  .wy-sec-head h2{font-size:20px;color:#111827}
+  .wy-sec-head small{display:block;font-weight:normal;color:#9ca3af;font-size:13px;margin-top:3px}
+  .wy-sec h3{font-size:15px;color:#0f2b5b;margin:18px 0 8px}
+  .wy-sec p{font-size:14.5px;color:#374151;line-height:2}
+  .wy-sec ul{margin:8px 0 8px 22px}
+  .wy-sec li{font-size:14.5px;color:#374151;line-height:2}
+  .wy-sec code{background:#eef2ff;color:#1d4ed8;padding:1px 7px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+  .wy-sec pre{background:#0f172a;color:#e2e8f0;border-radius:12px;padding:16px 18px;overflow:auto;font-family:Consolas,monospace;font-size:13px;line-height:1.8;margin:10px 0 4px}
+  .wy-sec pre .c{color:#94a3b8}
+
+  .wy-round{border:1px solid #e2e8f5;border-radius:12px;padding:14px 18px;margin:12px 0;background:#fbfcff}
+  .wy-round .wy-tag{display:inline-block;font-size:12.5px;padding:3px 12px;border-radius:999px;background:#e8f0ff;color:#0f2b5b;border:1px solid #c7d8f8;margin-bottom:8px}
+  .wy-round.bad{border-color:#fecaca;background:#fff5f5}
+  .wy-round.bad .wy-tag{background:#fee2e2;color:#b91c1c;border-color:#fecaca}
+  .wy-round.good{border-color:#bbf7d0;background:#f7fef9}
+  .wy-round.good .wy-tag{background:#dcfce7;color:#15803d;border-color:#bbf7d0}
+
+  .wy-quote{background:#f8fafc;border-left:4px solid #94a3b8;padding:10px 16px;border-radius:0 8px 8px 0;font-size:14px;color:#334155;line-height:2;margin:8px 0}
+  .wy-concl{background:#f0fdf4;border:1.5px dashed #16a34a;border-radius:10px;padding:10px 16px;font-size:13.5px;color:#166534;line-height:2;margin-top:10px}
+  .wy-concl b{color:#15803d}
+
+  table.wy-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+  table.wy-table th,table.wy-table td{border:1px solid #e5e7eb;padding:9px 12px;text-align:left;line-height:1.9;vertical-align:top}
+  table.wy-table th{background:#f3f6fd;color:#0f2b5b;font-weight:bold}
+
+  .wy-back{text-align:center;margin-top:28px}
+  .wy-back a{display:inline-block;text-decoration:none;color:#0f2b5b;font-size:14.5px;font-weight:bold;background:#fff;border:1px solid #dbe4ff;border-radius:999px;padding:10px 26px;transition:transform .2s,box-shadow .2s;margin:0 6px}
+  .wy-back a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(15,43,91,.15)}
+
+  footer{text-align:center;margin-top:34px;color:#9ca3af;font-size:13px;line-height:2}
+</style>
+</head>
+<body>
+<div class="wy-wrap">
+
+  <div class="wy-head">
+    <span class="wy-badge">高 职 · 高 级 网 页 设 计 · 课 堂 任 务 记 录</span>
+    <h1>Swiper 课堂任务记录 · <b>大国重器光影展</b></h1>
+    <p>本页是「课堂任务 + 思政升华」三关的过程与结论留档：任务一的提示词两轮迭代、任务二 creative 电影墙原理解读、任务三综合创作与答辩预答。配套成品页：<b>swiper-task.html</b>。</p>
+    <div class="wy-goals"><i>任务一 · 提示词工程师 ⭐⭐</i><i>任务二 · creative 仿写 ⭐⭐⭐</i><i>任务三 · 综合创作 + 答辩 ⭐⭐⭐</i></div>
+  </div>
+
+  <!-- 任务一 -->
+  <div class="wy-sec">
+    <div class="wy-sec-head">
+      <span class="wy-no">1</span>
+      <h2>提示词工程师：让 AI 听懂需求<small>两轮迭代 · 需求拆解 → 提示词精确性 → 输出验证</small></h2>
+    </div>
+    <p><b>需求原文</b>：生成 <code>new Swiper('#wySw4', {...})</code> 配置——① 无缝循环 ② 3.2 秒自动翻页且手动操作后不停止 ③ 圆点分页器可点击 ④ 初始效果为 cube。</p>
+
+    <h3>需求拆解表（动手写提示词之前先做）</h3>
+    <table class="wy-table">
+      <tr><th>需求</th><th>对应的参数写法</th><th>容易漏的点</th></tr>
+      <tr><td>① 无缝循环</td><td><code>loop: true</code></td><td>写成字符串 'true'，或者干脆没写</td></tr>
+      <tr><td>② 3.2 秒自动翻页、手动后不停</td><td><code>autoplay: { delay: 3200, disableOnInteraction: false }</code></td><td>只写 <code>autoplay: true</code>（默认 3 秒且一拖就停）；把 3.2 秒写成 <code>delay: 3.2</code></td></tr>
+      <tr><td>③ 圆点分页器可点击</td><td><code>pagination: { el: '#wyPag4', clickable: true }</code></td><td>漏 <code>el</code>（圆点不出现）；漏 <code>clickable</code>（圆点不能点）</td></tr>
+      <tr><td>④ 初始效果 cube</td><td><code>effect: 'cube'</code></td><td>只写了 effect，没考虑 cube 需要的 <code>cubeEffect</code> 默认值是否够用</td></tr>
+    </table>
+
+    <div class="wy-round bad">
+      <span class="wy-tag">第 1 轮 · 提示词（写得太笼统）</span>
+      <div class="wy-quote">帮我用 Swiper 初始化 #wySw4，要能循环，自动播放，底部有圆点，初始效果用 cube。</div>
+      <p><b>AI 回答（摘录）：</b></p>
+      <pre>var swiper4 = new Swiper('#wySw4', {
+  loop: true,
+  autoplay: true,
+  pagination: { el: '#wyPag4' },
+  effect: 'cube'
+});</pre>
+      <div class="wy-concl">
+        <b>一句话结论：</b>四条需求只满足了 ①④ —— <code>autoplay: true</code> 变成默认 3 秒且一拖动就永久停止，<code>pagination</code> 漏了 <code>clickable</code> 圆点不能点，也没有 3.2 秒的说法。粘贴进页面后：自动播放 3 秒就翻、拖一下就再也不自动翻，圆点点不动。
+      </div>
+    </div>
+
+    <div class="wy-round good">
+      <span class="wy-tag">第 2 轮 · 提示词（把需求写成可验收的条目）</span>
+      <div class="wy-quote">请生成 Swiper 11 的初始化配置 <code>new Swiper('#wySw4', {...})</code>，逐条满足下列要求，参数名必须准确，不要省略不要改写成别的写法：<br>
+      1）loop 为布尔值 true，实现无缝循环；<br>
+      2）autoplay 用对象写法，delay 为数字 3200（单位毫秒），disableOnInteraction 必须为 false，保证用户手动滑动后自动播放继续；<br>
+      3）pagination 用对象写法，el 传入 '#wyPag4'，clickable 为 true；<br>
+      4）effect 传入字符串 'cube' 作为初始效果；<br>
+      5）另外加上 speed: 800，切换动画 800 毫秒。<br>
+      请只输出一段可直接粘贴的 JS 代码，并在每行后加中文注释说明它对应哪一条要求。</div>
+      <p><b>AI 回答（正式采用，即成品页中的配置）：</b></p>
+      <pre>var wySw4 = new Swiper('#wySw4', {
+  loop: true,                                          <span class="c">// 需求① 无缝循环</span>
+  speed: 800,                                          <span class="c">// 需求⑤ 切换动画 800ms</span>
+  effect: 'slide',
+  autoplay: { delay: 3200, disableOnInteraction: false }, <span class="c">// 需求② 3.2 秒一翻，手动后继续</span>
+  pagination: { el: '#wyPag4', clickable: true }        <span class="c">// 需求③ 圆点可点击</span>
+});</pre>
+      <div class="wy-concl">
+        <b>验证结论（浏览器实测，F12 控制台无报错）：</b><br>
+        · 需求①：翻到第 6 张继续往后翻，回到第 1 张 → <b>通过</b>；<br>
+        · 需求②：什么都不点，约 3.2 秒翻一次；按住拖动松手后仍继续自动翻 → <b>通过</b>；<br>
+        · 需求③：底部 6 个圆点，点第 4 个直接跳到第 4 张 → <b>通过</b>；<br>
+        · 需求④：成品页按任务四要求以 slide 起步，cube 由「cube」按钮实时切换验证，切后呈 3D 立方体 → <b>通过</b>。
+      </div>
+    </div>
+
+    <h3>复盘三问（答辩用）</h3>
+    <ul>
+      <li><b>第一版漏了什么？</b>漏了「3.2 秒」这个数值和「手动后不停」这个行为，还漏了 <code>clickable</code>；本质是把"自动播放""圆点"当成了一个开关，而 Swiper 里它们是对象配置。</li>
+      <li><b>第二轮怎么"说清楚"的？</b>把四句话拆成五条可验收的条目，明确 参数名 + 值的类型 + 单位 + 布尔值，并禁止改写成别的写法。</li>
+      <li><b>AI 第一次错在哪？</b><code>autoplay: true</code> 等价于默认 3 秒且 <code>disableOnInteraction</code> 默认 true，与需求②直接冲突；<code>pagination</code> 少了 <code>clickable: true</code>。</li>
+    </ul>
+  </div>
+
+  <!-- 任务二 -->
+  <div class="wy-sec">
+    <div class="wy-sec-head">
+      <span class="wy-no">2</span>
+      <h2>creative 仿写：课堂没讲的第 7 种效果<small>creativeEffect 的 prev / next transform</small></h2>
+    </div>
+    <p><b>思路</b>：<code>creative</code> 不是预设动画，而是由我们自己"描述"每张非当前卡片的位置。核心就是把 <code>prev</code>（已经翻过去、停在左边的那张）和 <code>next</code>（还没轮到、等在右边的那张）各写一组变换参数，Swiper 负责在两者之间做补间。</p>
+
+    <pre>effect: 'creative',
+creativeEffect: {
+  limitProgress: 2,                        <span class="c">// 一张卡片最多按几段位移去计算</span>
+  prev: {                                  <span class="c">// 上一张（停在左侧）</span>
+    shadow: true,
+    translate: ['-28%', 0, -400],          <span class="c">// 左移 28%、不进不退、沿 Z 轴后退 400px</span>
+    rotate: [0, 0, -18],                   <span class="c">// 绕 Z 轴逆时针转 18°，像斜插在片架上</span>
+    scale: 0.82,                           <span class="c">// 缩小到 82%</span>
+    opacity: 0.65
+  },
+  next: {                                  <span class="c">// 下一张（等在右侧）</span>
+    translate: ['100%', 0, 0],             <span class="c">// 停在右侧一屏之外</span>
+    scale: 1.12,                           <span class="c">// 放大到 112%，进场时有"推近"感</span>
+    rotate: [0, 0, 0],
+    opacity: 1
+  }
+}</pre>
+
+    <h3>用我自己的话说：prev / next 的 transform 各控制什么？</h3>
+    <ul>
+      <li><b>prev</b>：当前这张的<b>前一张</b>翻走以后停在哪儿、什么姿态。我把它写成「缩小 82% + 左移 28% + 后退 400px + 逆时针倾 18° + 半透明」，于是它像一张被推到片架左侧的旧胶片，既退到后面又不抢戏。</li>
+      <li><b>next</b>：当前这张的<b>后一张</b>在轮到它之前躲在哪儿、多大。我写的是「停在右侧 100% 处、放大 112%」，这样它切进来时是从右边"压近"进画，形成电影选片墙那种一推一收的节奏。</li>
+      <li>两者共同决定了一组"三态"：左（缩小倾斜退后）— 中（正位）— 右（放大待入）。中间那张用的是默认值，不需要写。</li>
+    </ul>
+
+    <div class="wy-concl">
+      <b>验证结论：</b>点「creative 电影墙」按钮后，当前张居中正放，左边一张缩小并带倾斜退后、右侧一张放大待入，圆点与 3.2 秒自动播放照常工作，控制台无报错 → <b>通过</b>。
+    </div>
+
+    <h3>答辩预答</h3>
+    <ul>
+      <li><b>transform 里的百分号相对谁？</b>相对<b>轮播容器（slide 自身宽度）</b>，不是相对照片本身；所以 <code>-28%</code> 是"往左挪出三成箱体宽的位移量"，换屏幕尺寸也能等比变化。</li>
+      <li><b>改一个数值让卡片转 20 度怎么改？</b>把 <code>prev.rotate</code> 的第三个值改成 <code>-20</code>（顺时针正数、逆时针负数）：<code>rotate: [0, 0, -20]</code>。旋转轴是 Z 轴（垂直屏幕向外），所以看起来是"在纸面上转"。</li>
+    </ul>
+  </div>
+
+  <!-- 任务三 -->
+  <div class="wy-sec">
+    <div class="wy-sec-head">
+      <span class="wy-no">3</span>
+      <h2>综合创作 + 技术答辩：超纲加分<small>第六件展品 爱达·魔都号 + keyboard 键盘控制</small></h2>
+    </div>
+
+    <h3>① 第六件展品：爱达·魔都号</h3>
+    <p>「爱达·魔都号」是我国首艘国产大型邮轮，2024 年 1 月商业首航，13.55 万吨，和大型 LNG 船、航母并称造船业"皇冠上的三颗明珠"。配图用 AI 生成横版 16:9，提示词如下：</p>
+    <div class="wy-quote">A grand Chinese-built cruise ship sailing on the open sea at golden hour, modern white cruise liner with blue hull, large panoramic windows, calm ocean waves, cinematic realistic photography, wide angle side view, warm sunset light, high detail</div>
+    <p>slide 结构与其它五件完全一致（<code>.swiper-slide</code> → <code>img</code> + <code>.wy-cap</code> 图文层），已加入四个演示，标题与文案如下：</p>
+    <pre>&lt;div class="swiper-slide"&gt;
+  &lt;img src="…text_to_image…&amp;image_size=landscape_16_9" alt="爱达·魔都号"&gt;
+  &lt;div class="wy-cap"&gt;
+    &lt;h3&gt;爱达·魔都号&lt;/h3&gt;
+    &lt;p&gt;2024 年 1 月商业首航 · 首艘国产大型邮轮&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+    <h3>② 课堂上没讲过的能力：keyboard 键盘控制</h3>
+    <p>四个额外能力里我选 <code>keyboard</code>：改配置就能用，不需要改结构，演示时"按一下方向键就翻页"最直观。</p>
+    <pre>keyboard: {
+  enabled: true,          <span class="c">// 开启键盘控制</span>
+  onlyInViewport: true    <span class="c">// 轮播不在视口内时不响应，避免用户滚到别处还在翻页</span>
+}</pre>
+    <p>用法：先用鼠标点一下轮播图（容器获得焦点），再按 <code>←</code> / <code>→</code>。注意它只在演示四上开启，前三个演示保持纯鼠标/触摸操作。</p>
+
+    <h3>AI 关键对话记录（提示词 + 往返）</h3>
+    <div class="wy-round">
+      <span class="wy-tag">往返 1 · 问 creative 怎么用</span>
+      <div class="wy-quote">Swiper 11 里 effect: 'creative' 除了 prev / next 还能写什么？我想做"上一张缩小左移带角度、下一张放大右移进场"的电影选片墙效果。</div>
+      <p><b>AI 回答要点</b>：<code>creativeEffect</code> 支持 <code>prev</code> / <code>next</code> / <code>limitProgress</code> / <code>perspective</code> / <code>progressMultiplier</code>；每个方向可写 <code>translate</code>（数组，支持 %、px）、<code>rotate</code>、<code>scale</code>、<code>opacity</code>、<code>origin</code>、<code>shadow</code>。给出 <code>translate: ['-28%', 0, -400]</code> + <code>rotate: [0,0,-18]</code> + <code>scale: 0.82</code> 的写法。</p>
+      <p><b>我的核对</b>：<code>scale</code> 与 <code>opacity</code> 确实在 prev 里生效；旧版只有 <code>translate</code>，新版才有 scale/opacity，所以要确认用的是 Swiper 11。</p>
+    </div>
+    <div class="wy-round">
+      <span class="wy-tag">往返 2 · 追问 transform 的百分号</span>
+      <div class="wy-quote">translate 里的 -28% 是相对图片还是相对轮播容器？我把 rotate 改成 [0, 0, -20] 会发生什么？</div>
+      <p><b>AI 回答要点</b>：百分比相对 slide 自身尺寸（也就是容器可见宽度），不是相对内部 img；<code>rotate</code> 三个值依次对应 X / Y / Z 轴，Z 轴是屏幕法线方向，改第三个值就是"在纸面上转"。我据此把 -18° 微调到 -18°，答辩时改成 -20° 现场演示。</p>
+    </div>
+    <div class="wy-round">
+      <span class="wy-tag">往返 3 · 键盘控制</span>
+      <div class="wy-quote">Swiper 11 加键盘控制要哪些配置？为什么我加了没反应？</div>
+      <p><b>AI 回答要点</b>：需要 <code>keyboard: { enabled: true }</code>，并且轮播容器必须<b>获得焦点</b>（a11y 会给容器加 tabindex，所以先点一下或 Tab 过去）；在 iframe 里或容器无焦点时按方向键无效。补充 <code>onlyInViewport: true</code> 可避免页面外的轮播也跟着翻。</p>
+    </div>
+
+    <h3>答辩四连问 · 我的回答</h3>
+    <ul>
+      <li><b>这段代码什么意思？</b><code>wySw4Options(fx)</code> 把演示四的完整配置收在一个函数里，参数 <code>fx</code> 决定 <code>effect</code>，只有 <code>creative</code> 时才额外挂上 <code>creativeEffect</code>；按钮点击时先清高亮、再 <code>destroy(true, true)</code> 销毁旧实例、最后用新配置 <code>new Swiper</code> 重建——因为 Swiper 的 effect 模块是在实例化时装配的，运行中只改参数不会重新装载。</li>
+      <li><b>AI 第一次给的哪里不对、改了什么？</b>第一次给的 <code>autoplay: true</code> 会一拖就停，且没有 3.2 秒；另外直接 <code>swiper.params.effect = 'cube'</code> 想"热改"效果，实际无效，必须重建实例。我改成对象写法 + destroy/rebuild。</li>
+      <li><b>新参数的作用？</b><code>keyboard.enabled</code> 打开键盘监听，<code>onlyInViewport</code> 限制只在轮播可见时响应；<code>creativeEffect.prev/next</code> 描述非当前卡的位移/旋转/缩放，<code>limitProgress</code> 控制最多按几段位移计算。</li>
+      <li><b>现场把 delay 改成指定值并解释预期变化？</b>例如把 <code>delay: 3200</code> 改成 <code>delay: 1000</code>：页面上表现为每张停留时间由约 3.2 秒缩短到 1 秒，翻页明显变快，但切换动画时长仍由 <code>speed: 800</code> 决定，不受影响（delay 管"停留"，speed 管"过渡"）。</li>
+    </ul>
+  </div>
+
+  <div class="wy-back">
+    <a href="swiper-task.html">← 返回 Swiper 课堂任务页</a>
+    <a href="index.html">返回课堂实践中心 →</a>
+  </div>
+
+  <footer>Swiper 课堂任务记录 · 大国重器光影展 · 高级网页设计 · 2026-2027-1</footer>
+</div>
+</body>
+</html>
