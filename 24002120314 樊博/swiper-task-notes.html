@@ -49,6 +49,14 @@
   .wy-concl{background:#f0fdf4;border:1.5px dashed #16a34a;border-radius:10px;padding:10px 16px;font-size:13.5px;color:#166534;line-height:2;margin-top:10px}
   .wy-concl b{color:#15803d}
 
+  /* 验证截图 */
+  .wy-figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin:14px 0 6px}
+  .wy-figs figure{margin:0;background:#fff;border:1px solid #e2e8f5;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(31,41,55,.06)}
+  .wy-figs img{width:100%;display:block;border-bottom:1px solid #eef2ff}
+  .wy-figs figcaption{font-size:13px;color:#334155;padding:10px 14px;line-height:1.9}
+  .wy-figs figcaption b{color:#0f2b5b}
+  .wy-figs figcaption i{font-style:normal;color:#15803d}
+
   table.wy-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
   table.wy-table th,table.wy-table td{border:1px solid #e5e7eb;padding:9px 12px;text-align:left;line-height:1.9;vertical-align:top}
   table.wy-table th{background:#f3f6fd;color:#0f2b5b;font-weight:bold}
@@ -128,6 +136,26 @@
       </div>
     </div>
 
+    <h3>验证截图（演示四 · #wySw4）</h3>
+    <div class="wy-figs">
+      <figure>
+        <img src="swiper-shots/shot-01-slide.png" alt="默认 slide 状态：7 个效果按钮 + 6 个圆点">
+        <figcaption><b>图 1 · 默认状态</b><br>7 个效果按钮、6 个圆点齐全。<br><i>结论：加载即为 slide 效果，初始化配置生效。</i></figcaption>
+      </figure>
+      <figure>
+        <img src="swiper-shots/shot-02-autoplay.png" alt="约 3.6 秒后再截，圆点已后移一位">
+        <figcaption><b>图 2 · 自动播放</b><br>与图 1 间隔 3.6 秒、不点任何按钮再截，圆点已后移一位。<br><i>结论：约 3.2 秒自动翻页，delay: 3200 生效。</i></figcaption>
+      </figure>
+      <figure>
+        <img src="swiper-shots/shot-03-dot-click.png" alt="点第 4 个圆点后跳到第 4 张奋斗者号">
+        <figcaption><b>图 3 · 点圆点跳转</b><br>第 4 个圆点变长高亮，画面为第 4 张「奋斗者号」。<br><i>结论：圆点可点击跳转，clickable: true 生效。</i></figcaption>
+      </figure>
+      <figure>
+        <img src="swiper-shots/shot-04-cube.png" alt="cube 3D 立方体过渡画面">
+        <figcaption><b>图 4 · cube 效果</b><br>点「cube」按钮后翻页，抓过渡瞬间的 3D 立方体。<br><i>结论：effect: 'cube' 生效，切换呈立体翻转。</i></figcaption>
+      </figure>
+    </div>
+
     <h3>复盘三问（答辩用）</h3>
     <ul>
       <li><b>第一版漏了什么？</b>漏了「3.2 秒」这个数值和「手动后不停」这个行为，还漏了 <code>clickable</code>；本质是把"自动播放""圆点"当成了一个开关，而 Swiper 里它们是对象配置。</li>
@@ -173,6 +201,13 @@ creativeEffect: {
       <b>验证结论：</b>点「creative 电影墙」按钮后，当前张居中正放，左边一张缩小并带倾斜退后、右侧一张放大待入，圆点与 3.2 秒自动播放照常工作，控制台无报错 → <b>通过</b>。
     </div>
 
+    <div class="wy-figs">
+      <figure>
+        <img src="swiper-shots/shot-05-creative.png" alt="creative 电影墙效果截图">
+        <figcaption><b>图 5 · creative 电影墙</b><br>按钮高亮为暖橙色，上一张缩小、左移并倾斜退后。<br><i>结论：creativeEffect 的 prev / next 生效。</i></figcaption>
+      </figure>
+    </div>
+
     <h3>答辩预答</h3>
     <ul>
       <li><b>transform 里的百分号相对谁？</b>相对<b>轮播容器（slide 自身宽度）</b>，不是相对照片本身；所以 <code>-28%</code> 是"往左挪出三成箱体宽的位移量"，换屏幕尺寸也能等比变化。</li>
@@ -206,6 +241,17 @@ creativeEffect: {
   onlyInViewport: true    <span class="c">// 轮播不在视口内时不响应，避免用户滚到别处还在翻页</span>
 }</pre>
     <p>用法：先用鼠标点一下轮播图（容器获得焦点），再按 <code>←</code> / <code>→</code>。注意它只在演示四上开启，前三个演示保持纯鼠标/触摸操作。</p>
+
+    <div class="wy-figs">
+      <figure>
+        <img src="swiper-shots/shot-06-keyboard.png" alt="按方向键后轮播翻到下一张">
+        <figcaption><b>图 6 · 键盘控制</b><br>聚焦轮播后按一次 <code>→</code>，画面与圆点同步前进一张（脚本读取 realIndex 由 0 变为 1）。<br><i>结论：keyboard.enabled 生效。</i></figcaption>
+      </figure>
+      <figure>
+        <img src="swiper-shots/shot-07-cruise.png" alt="第六件展品爱达·魔都号">
+        <figcaption><b>图 7 · 第六件展品</b><br>「爱达·魔都号」AI 生成配图已按 16:9 正常显示，图文层与其它展品一致。<br><i>结论：新增 slide 结构完整、图片加载正常。</i></figcaption>
+      </figure>
+    </div>
 
     <h3>AI 关键对话记录（提示词 + 往返）</h3>
     <div class="wy-round">
