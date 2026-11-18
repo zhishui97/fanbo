@@ -294,6 +294,24 @@
     color:#64748b;background:#e2e8f0;border-radius:6px;padding:2px 7px;
   }
   .wy_phone_body{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  .wy_phone_media{
+    position:relative;flex:none;height:132px;margin:8px 0 6px;
+    border-radius:14px;overflow:hidden;
+    background:linear-gradient(135deg,#e2e8f0,#cbd5e1);
+  }
+  .wy_shake_img{
+    width:100%;height:100%;display:block;object-fit:cover;
+    transition:opacity .35s,transform .35s,filter .35s;
+  }
+  .wy_shake_img.is-hidden{opacity:0}
+  .wy_phone_media.is-cooking .wy_shake_img{opacity:.5;transform:scale(1.06);filter:blur(2px)}
+  .wy_phone_media.is-cooking::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.7) 50%,transparent 70%);
+    transform:translateX(-100%);
+    animation:wy_sheen 1.1s linear infinite;
+  }
+  @keyframes wy_sheen{to{transform:translateX(100%)}}
   .wy_shake_lead{font-size:12px;color:#94a3b8;letter-spacing:1px}
   .wy_shake_dish{font-size:23px;line-height:1.45;color:#0f172a;margin:8px 0;letter-spacing:1px}
   .wy_shake_desc{font-size:12px;line-height:1.85;color:#64748b;min-height:44px}
@@ -587,6 +605,9 @@
             <span class="wy_sensor_state" id="wy_sensor_state">传感器检测中</span>
           </div>
           <div class="wy_phone_body">
+            <div class="wy_phone_media" id="wy_phone_media">
+              <img class="wy_shake_img" id="wy_shake_img" alt="今日菜品图片">
+            </div>
             <p class="wy_shake_lead" id="wy_shake_lead">摇一摇，看看今天吃什么</p>
             <h3 class="wy_shake_dish" id="wy_shake_dish">？</h3>
             <p class="wy_shake_desc" id="wy_shake_desc">连续摇动手机即可抽取；抽到后 1.5 秒内不会重复触发。</p>
@@ -1285,15 +1306,52 @@
   var wy_shake_btn = document.getElementById('wy_shake_btn');
   var wy_auth_btn = document.getElementById('wy_motion_auth');
   var wy_motion_tip = document.getElementById('wy_motion_tip');
+  var wy_phone_media = document.getElementById('wy_phone_media');
+  var wy_shake_img = document.getElementById('wy_shake_img');
 
   var wy_menu = [
-    { name: '番茄牛腩饭', desc: '牛腩炖到酥烂，酸甜汤汁拌进热饭，一勺见底。' },
-    { name: '藤椒鸡丝面', desc: '藤椒的麻在舌尖打转，鸡丝清爽，汤头微辣。' },
-    { name: '蒜香烤排骨', desc: '外皮焦脆、蒜香浓，配一小碟酸黄瓜刚好解腻。' },
-    { name: '蟹黄豆腐煲', desc: '嫩豆腐吸满蟹黄汤汁，滚烫上桌，小心烫嘴。' },
-    { name: '黑椒牛柳意面', desc: '黑椒汁裹住每根面条，牛柳现煎，七分熟。' },
-    { name: '酒酿小圆子', desc: '桂花与酒酿的甜香，温热一碗，收个尾。' }
+    {
+      name: '番茄牛腩饭',
+      desc: '牛腩炖到酥烂，酸甜汤汁拌进热饭，一勺见底。',
+      img: 'close-up food photography of braised beef brisket with tomato over steamed white rice in a ceramic bowl, glossy red sauce, tender beef chunks, parsley garnish, warm restaurant lighting, shallow depth of field, appetizing'
+    },
+    {
+      name: '藤椒鸡丝面',
+      desc: '藤椒的麻在舌尖打转，鸡丝清爽，汤头微辣。',
+      img: 'close-up food photography of Sichuan green peppercorn chicken noodle soup, shredded chicken, scallion, chili oil, steaming bowl, chopsticks, warm cozy lighting'
+    },
+    {
+      name: '蒜香烤排骨',
+      desc: '外皮焦脆、蒜香浓，配一小碟酸黄瓜刚好解腻。',
+      img: 'close-up food photography of garlic roasted pork ribs on a plate, crispy caramelized crust, chopped garlic, pickles on the side, warm rustic wooden table'
+    },
+    {
+      name: '蟹黄豆腐煲',
+      desc: '嫩豆腐吸满蟹黄汤汁，滚烫上桌，小心烫嘴。',
+      img: 'close-up food photography of crab roe tofu stew in a clay pot, golden creamy sauce, soft tofu cubes, steaming, dark background, appetizing'
+    },
+    {
+      name: '黑椒牛柳意面',
+      desc: '黑椒汁裹住每根面条，牛柳现煎，七分熟。',
+      img: 'close-up food photography of black pepper beef pasta, sliced medium rare beef, glossy black pepper sauce, spaghetti twirled on a dark plate'
+    },
+    {
+      name: '酒酿小圆子',
+      desc: '桂花与酒酿的甜香，温热一碗，收个尾。',
+      img: 'close-up food photography of sweet fermented rice soup with glutinous rice balls and osmanthus flowers in a white bowl, warm soft light, gentle steam'
+    }
   ];
+
+  // 功能：把菜品图片描述拼成文生图接口地址，返回可直接赋给 img.src 的链接
+  function wy_food_img(wy_prompt) {
+    return 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=' +
+      encodeURIComponent(wy_prompt) + '&image_size=landscape_4_3';
+  }
+
+  // 功能：从菜单里随机抽一道菜，返回该菜品对象
+  function wy_pick_item() {
+    return wy_menu[Math.floor(Math.random() * wy_menu.length)];
+  }
 
   var wy_threshold = 10;       // 合成加速度变化量阈值
   var wy_cooling = false;      // 冷却标记
@@ -1301,13 +1359,13 @@
   var wy_supported = false;    // 是否收到过 devicemotion
   var wy_probe_timer = 0;
 
-  // 功能：随机抽一道菜并显示到手机屏幕和手机下方的结果条，结束"烹饪中"状态
-  function wy_show_dish() {
-    var wy_item = wy_menu[Math.floor(Math.random() * wy_menu.length)];
+  // 功能：把抽中的菜品显示到手机屏幕和手机下方的结果条，结束"烹饪中"状态与图片加载动画
+  function wy_show_dish(wy_item) {
     wy_lead_el.textContent = '今天就吃这个';
     wy_dish_el.textContent = wy_item.name;
     wy_desc_el.textContent = wy_item.desc;
     wy_result_el.innerHTML = '今日菜单：<b>' + wy_item.name + '</b>';
+    wy_phone_media.classList.remove('is-cooking');
     wy_cook.hidden = true;
     wy_cook.classList.remove('is-run');
   }
@@ -1324,6 +1382,12 @@
     wy_desc_el.textContent = '摇一摇的结果马上出锅';
     wy_result_el.textContent = '烹饪中，马上出锅…';
 
+    // 先抽菜并开始加载菜品图片，让"烹饪中"的 1.2 秒用来等图片
+    var wy_item = wy_pick_item();
+    wy_shake_img.classList.remove('is-hidden');
+    wy_shake_img.src = wy_food_img(wy_item.img);
+    wy_phone_media.classList.add('is-cooking');
+
     // 重新触发 CSS 动画：先移除类、强制回流，再加回来
     wy_phone.classList.remove('is-shake');
     void wy_phone.offsetWidth;
@@ -1339,7 +1403,7 @@
     }
 
     window.setTimeout(function () {
-      wy_show_dish();
+      wy_show_dish(wy_item);
     }, 1200);
 
     window.setTimeout(function () {
@@ -1426,9 +1490,18 @@
     wy_phone.classList.remove('is-shake');
   }
 
+  // 功能：菜品图片加载失败时隐藏图片，退回渐变底色，避免出现破图
+  function wy_on_img_error() {
+    wy_shake_img.classList.add('is-hidden');
+  }
+
   wy_auth_btn.addEventListener('click', wy_on_auth_click);
   wy_shake_btn.addEventListener('click', wy_on_shake_click);
   wy_phone.addEventListener('animationend', wy_on_anim_end);
+  wy_shake_img.addEventListener('error', wy_on_img_error);
+
+  // 初始封面：先放一张餐桌图片，摇一摇后再换成抽中的菜品图
+  wy_shake_img.src = wy_food_img('top view of a warm Chinese family dinner table with several home style dishes, steam, chopsticks and tea cups, cozy warm lighting, food photography');
 
   wy_init_motion();
 })();
