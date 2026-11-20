@@ -1313,40 +1313,34 @@
     {
       name: '番茄牛腩饭',
       desc: '牛腩炖到酥烂，酸甜汤汁拌进热饭，一勺见底。',
-      img: 'close-up food photography of braised beef brisket with tomato over steamed white rice in a ceramic bowl, glossy red sauce, tender beef chunks, parsley garnish, warm restaurant lighting, shallow depth of field, appetizing'
+      img: 'shake-img/dish1.jpg'
     },
     {
       name: '藤椒鸡丝面',
       desc: '藤椒的麻在舌尖打转，鸡丝清爽，汤头微辣。',
-      img: 'close-up food photography of Sichuan green peppercorn chicken noodle soup, shredded chicken, scallion, chili oil, steaming bowl, chopsticks, warm cozy lighting'
+      img: 'shake-img/dish2.jpg'
     },
     {
       name: '蒜香烤排骨',
       desc: '外皮焦脆、蒜香浓，配一小碟酸黄瓜刚好解腻。',
-      img: 'close-up food photography of garlic roasted pork ribs on a plate, crispy caramelized crust, chopped garlic, pickles on the side, warm rustic wooden table'
+      img: 'shake-img/dish3.jpg'
     },
     {
       name: '蟹黄豆腐煲',
       desc: '嫩豆腐吸满蟹黄汤汁，滚烫上桌，小心烫嘴。',
-      img: 'close-up food photography of crab roe tofu stew in a clay pot, golden creamy sauce, soft tofu cubes, steaming, dark background, appetizing'
+      img: 'shake-img/dish4.jpg'
     },
     {
       name: '黑椒牛柳意面',
       desc: '黑椒汁裹住每根面条，牛柳现煎，七分熟。',
-      img: 'close-up food photography of black pepper beef pasta, sliced medium rare beef, glossy black pepper sauce, spaghetti twirled on a dark plate'
+      img: 'shake-img/dish5.jpg'
     },
     {
       name: '酒酿小圆子',
       desc: '桂花与酒酿的甜香，温热一碗，收个尾。',
-      img: 'close-up food photography of sweet fermented rice soup with glutinous rice balls and osmanthus flowers in a white bowl, warm soft light, gentle steam'
+      img: 'shake-img/dish6.jpg'
     }
   ];
-
-  // 功能：把菜品图片描述拼成文生图接口地址，返回可直接赋给 img.src 的链接
-  function wy_food_img(wy_prompt) {
-    return 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=' +
-      encodeURIComponent(wy_prompt) + '&image_size=landscape_4_3';
-  }
 
   // 功能：从菜单里随机抽一道菜，返回该菜品对象
   function wy_pick_item() {
@@ -1385,7 +1379,7 @@
     // 先抽菜并开始加载菜品图片，让"烹饪中"的 1.2 秒用来等图片
     var wy_item = wy_pick_item();
     wy_shake_img.classList.remove('is-hidden');
-    wy_shake_img.src = wy_food_img(wy_item.img);
+    wy_shake_img.src = wy_item.img;
     wy_phone_media.classList.add('is-cooking');
 
     // 重新触发 CSS 动画：先移除类、强制回流，再加回来
@@ -1501,7 +1495,7 @@
   wy_shake_img.addEventListener('error', wy_on_img_error);
 
   // 初始封面：先放一张餐桌图片，摇一摇后再换成抽中的菜品图
-  wy_shake_img.src = wy_food_img('top view of a warm Chinese family dinner table with several home style dishes, steam, chopsticks and tea cups, cozy warm lighting, food photography');
+  wy_shake_img.src = 'shake-img/cover.jpg';
 
   wy_init_motion();
 })();
